@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Your Title
+title: D'blog
 subtitle: This is hexo theme
-author: John Doe
-language:
+author: Kendall Luo
+language: zh-Hans
 timezone:
 
 # URL
@@ -20,7 +20,7 @@ permalink_defaults:
 
 # Site settings
 SEOTitle: Beantech | 豆科技
-email: beantech@gmail.com
+email: kunduoluo@gmail.com
 description: ""
 keyword: ""
 header-img: img/header_img/home-bg-2-dark.png
@@ -32,22 +32,22 @@ signature-img: img/signature/BeanTechSign-white.png
 # RSS: false
 # weibo_username:     Demonbaneen
 # zhihu_username:     Demonbane
-github_username:    YenYuHsuan
+github_username:    Pudgedd
 # twitter_username:   Demonbane_x
-facebook_username:  YenYuHsuan
-linkedin_username:  yu-hsuan-yen
+facebook_username:  
+linkedin_username:  
 
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 
 # Disqus settings
-disqus_username: your-disqus-ID
+disqus_username: pudgefreshmeat
 
 # Duoshuo settings
 # duoshuo_username: kaijun
 # Share component is depend on Comment so we can NOT use share only.
-duoshuo_share: true                     # set to false if you want to use Comment without Sharing
+duoshuo_share: false                     # set to false if you want to use Comment without Sharing
 
 
 # Analytics settings
@@ -60,7 +60,7 @@ ga_domain: yoursite
 
 # Sidebar settings
 sidebar: true                       # whether or not using Sidebar.
-sidebar-about-description: "Hi, i'm John Doe"
+sidebar-about-description: "Hi, i'm Kendall Luo"
 sidebar-avatar: img/ironman-draw.png      # use absolute URL, seeing it's used in both `/` and `/about/`
 widgets:
 - featured-tags
