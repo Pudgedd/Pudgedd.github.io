@@ -104,21 +104,21 @@
 
 
 
-  <meta name="description" content="Redis 1. 数据结构与对象 1.1 简单动态字符串-SDS 为什么要用SDS？   1.2 链表 1.3 字典 解决键冲突： 扩容（收缩）和rehash   1.4 跳跃表 跳跃表原理 跳跃表的实现          1. 数据结构与对象1.1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simpl">
+  <meta name="description" content="1. 数据结构与对象1.1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。">
 <meta name="keywords" content="Redis,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Redis数据结构与对象一">
 <meta property="og:url" content="http://yoursite.com/2018/12/28/Redis数据结构与对象一/index.html">
 <meta property="og:site_name" content="D&#39;blog">
-<meta property="og:description" content="Redis 1. 数据结构与对象 1.1 简单动态字符串-SDS 为什么要用SDS？   1.2 链表 1.3 字典 解决键冲突： 扩容（收缩）和rehash   1.4 跳跃表 跳跃表原理 跳跃表的实现          1. 数据结构与对象1.1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simpl">
+<meta property="og:description" content="1. 数据结构与对象1.1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://odwv9d2u8.bkt.clouddn.com/17-10-3/32571293.jpg">
 <meta property="og:image" content="http://odwv9d2u8.bkt.clouddn.com/17-10-3/6620991.jpg">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/878314/201701/878314-20170130211615120-320409943.png">
-<meta property="og:updated_time" content="2018-12-28T15:52:32.995Z">
+<meta property="og:updated_time" content="2018-12-28T15:56:30.157Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis数据结构与对象一">
-<meta name="twitter:description" content="Redis 1. 数据结构与对象 1.1 简单动态字符串-SDS 为什么要用SDS？   1.2 链表 1.3 字典 解决键冲突： 扩容（收缩）和rehash   1.4 跳跃表 跳跃表原理 跳跃表的实现          1. 数据结构与对象1.1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simpl">
+<meta name="twitter:description" content="1. 数据结构与对象1.1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。">
 <meta name="twitter:image" content="http://odwv9d2u8.bkt.clouddn.com/17-10-3/32571293.jpg">
 
 
@@ -428,7 +428,7 @@
                 
               
 
-              <time title="创建时间：2018-12-28 23:51:22 / 修改时间：23:52:32" itemprop="dateCreated datePublished" datetime="2018-12-28T23:51:22+08:00">2018-12-28</time>
+              <time title="创建时间：2018-12-28 23:51:22 / 修改时间：23:56:30" itemprop="dateCreated datePublished" datetime="2018-12-28T23:51:22+08:00">2018-12-28</time>
             
 
             
@@ -438,6 +438,24 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a></span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -478,7 +496,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.7k</span>
+                <span title="本文字数">8.5k</span>
               
 
               
@@ -512,32 +530,7 @@
       
 
       
-        <ul>
-<li><a href="#redis">Redis</a><ul>
-<li><a href="#1-数据结构与对象">1. 数据结构与对象</a><ul>
-<li><a href="#11-简单动态字符串-sds">1.1 简单动态字符串-SDS</a><ul>
-<li><a href="#为什么要用sds">为什么要用SDS？</a></li>
-</ul>
-</li>
-<li><a href="#12-链表">1.2 链表</a></li>
-<li><a href="#13-字典">1.3 字典</a><ul>
-<li><a href="#解决键冲突">解决键冲突：</a></li>
-<li><a href="#扩容收缩和rehash">扩容（收缩）和rehash</a></li>
-</ul>
-</li>
-<li><a href="#14-跳跃表">1.4 跳跃表</a><ul>
-<li><a href="#跳跃表原理">跳跃表原理</a></li>
-<li><a href="#跳跃表的实现">跳跃表的实现</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<!-- /TOC -->
-<hr>
-<h2 id="1-数据结构与对象"><a href="#1-数据结构与对象" class="headerlink" title="1. 数据结构与对象"></a>1. 数据结构与对象</h2><h3 id="1-1-简单动态字符串-SDS"><a href="#1-1-简单动态字符串-SDS" class="headerlink" title="1.1 简单动态字符串-SDS"></a>1.1 简单动态字符串-SDS</h3><p>Redis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。<br>当你在redis客户端执行命令：</p>
+        <h2 id="1-数据结构与对象"><a href="#1-数据结构与对象" class="headerlink" title="1. 数据结构与对象"></a>1. 数据结构与对象</h2><h3 id="1-1-简单动态字符串-SDS"><a href="#1-1-简单动态字符串-SDS" class="headerlink" title="1.1 简单动态字符串-SDS"></a>1.1 简单动态字符串-SDS</h3><p>Redis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。<br><a id="more"></a><br>当你在redis客户端执行命令：</p>
 <pre><code>redis&gt;SET msg &quot;hello world&quot;
 OK
 </code></pre><p>那么Redis将会创建一个新的键值对，而这个键值对的键”msg”和键值对的值”hello world”底层实现就是保存了字符串的SDS。</p>
@@ -679,8 +672,8 @@ redis&gt; ZCARD fruit-price
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/27/first-post/" rel="next" title="first post">
-                <i class="fa fa-chevron-left"></i> first post
+              <a href="/2018/12/27/hello-world/" rel="next" title="Hello World">
+                <i class="fa fa-chevron-left"></i> Hello World
               </a>
             
           </div>
@@ -766,12 +759,25 @@ redis&gt; ZCARD fruit-price
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
+                    <span class="site-state-item-count">2</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
               
 
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/categories/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
               
 
               
