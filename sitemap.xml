@@ -2,35 +2,28 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://yoursite.com/2018/12/28/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1%E4%B8%80/</loc>
+    <loc>https://pudgedd.github.io/2018/12/28/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1%E4%B8%80/</loc>
     
     <lastmod>2018-12-28T16:03:06.377Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/2018/12/27/hello-world/</loc>
-    
-    <lastmod>2018-12-28T15:56:55.521Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/about/index.html</loc>
+    <loc>https://pudgedd.github.io/about/index.html</loc>
     
     <lastmod>2018-12-28T14:37:14.491Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/categories/index.html</loc>
+    <loc>https://pudgedd.github.io/categories/index.html</loc>
     
     <lastmod>2018-12-28T14:34:26.444Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://yoursite.com/tags/index.html</loc>
+    <loc>https://pudgedd.github.io/tags/index.html</loc>
     
     <lastmod>2018-12-28T14:34:20.941Z</lastmod>
     
