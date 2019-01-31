@@ -40,7 +40,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Redis数据结构与对象二]]></title>
+    <title><![CDATA[Redis数据结构与对象(2)——链表]]></title>
     <url>%2F2019%2F01%2F31%2FRedis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1(2)%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8%2F</url>
     <content type="text"><![CDATA[链表链表提供了高效的节点重排能力，以及顺序性节点的访问方式，并且可以通过增删节点来灵活地调整长度。Redis中的列表键(list)的底层实现之一就是链表。当一个链表键包含了较多元素，又或者列表中包含的元素都是较长的字符串时，Redis就会使用链表作为列表键的底层实现。（实际上链表还被广泛用于实现Redis的各种功能，比如发布与订阅、慢查询、监视器等） redis&gt;LLEN integers (integer) 1024 redis&gt;LRANGE integers 0 3 1)&quot;1&quot; 2)&quot;2&quot; 3)&quot;3&quot; integers列表键底层实现就是一个链表，每个节点都保存了一个整数值。 Redis链表的实现: 每个链表节点都包含了指向prev和next的两个指针，同时还有保存节点值的value指针。12345typedef struct listNode&#123; struct listNode *prev; struct listNode *next; void *value;&#125;listNode; Redis list结构: list结构为链表提供了表头指针，表尾指针，以及链表长度计数器len，这么做的好处是获取prev和next节点、获取head和tail节点、获取链表长度的时间复杂度均为O(1)。此外还提供了三个特定函数。12345678typedef struct list&#123; listNode *head; listNode *tail; unsigned long len; void *(*dup)(void *ptr); void *(*free)(void *ptr); int *(*match)(void *ptr,void *key);&#125;list;]]></content>
       <categories>
@@ -53,7 +53,7 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Redis数据结构与对象（一）——简单动态字符串SDS]]></title>
+    <title><![CDATA[Redis数据结构与对象(1)——简单动态字符串SDS]]></title>
     <url>%2F2018%2F12%2F28%2FRedis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1(1)%E2%80%94%E2%80%94%E7%AE%80%E5%8D%95%E5%8A%A8%E6%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2SDS%2F</url>
     <content type="text"><![CDATA[1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。当你在redis客户端执行命令： redis&gt;SET msg &quot;hello world&quot; OK 那么Redis将会创建一个新的键值对，而这个键值对的键”msg”和键值对的值”hello world”底层实现就是保存了字符串的SDS。 SDS定义: struct sdshdr{ int len; //记录buf数组中已使用的字节的数量 int free; //记录buf数组中未使用的字节的数量 char buf[]; //保存字符串char的数组 } SDS的结构其实就是一个字节数组，如字符串”redis”，那么buf就是一个保存了[‘r’,’e’,’d’,’i’,’s’,’\0’]的char数组（’\0’是C语言的一个惯例，redis遵守这个惯例是为了直接重用C库里的一些字符串函数） 为什么要用SDS？C语言使用的字符串方式，并不能满足Redis对字符串安全性、效率以及功能的要求。 常数复杂度获取字符串长度：C获取字符串长度复杂度为O(N)，而SDS保存了len属性，获取字符串长度复杂度为O(1) 杜绝缓冲区溢出：C字符串不记录自身长度带来的另一个问题就是容易造成缓冲区溢出，例如内存中紧邻的s1-“redis”和s2-“mongo”，如果此时执行strcat(s1,&quot;cluster&quot;)，且没有在此之前为s1分配足够的空间，那么s2保存的内容将被意外的修改。与C不同，当SDS的API需要对SDS进行修改时，API会先检查SDS的空间是否满足修改所需，不满足的话，API会自动将SDS的空间扩展至所需修改的大小，然后再进行实际的修改，所以SDS不需要手动修改SDS的空间大小，也不会出现缓冲区溢出问题。 减少修改字符串时带来的内存重分配次数：C在每次进行字符串修改时（增长或缩短），总要进行一次内存重分配操作，而内存重分配涉及复杂的算法，并且可能需要执行系统调用，所以比较耗时。为了避免这个缺陷，SDS通过未使用空间接触字符串长度和底层数组长度的关联。buf的数组长度可能包含未使用的字节，由free属性记录。实际上SDS用未使用空间实现了两种优化策略。3.1 空间预分配：当SDS的API对一个SDS进行修改，并且需要对SDS进行空间扩展的时候，程序不仅会为SDS分配修改所必须的空间，还会分配额外的未使用空间。若修改后的SDS长度（len属性）小于1MB，那么分配和len属性同样大小的未使用空间，即buf的实际长度为len+len+1byte;若长度大于1MB，那么程序会分配1MB的未使用空间，即buf的实际长度为lne+1MB+1byte。3.2 惰性空间释放：执行字符串缩短操作后，SDS并不会立即释放多余的空间，而是保留作为未使用空间，以减少内存重分配操作，并未将来可能的增长提供优化。当然SDS也提供主动释放空间的API。 二进制安全：C以”\0”为结尾标记，若有使用此特殊字符的字符串，则无法用C字符串保存。而SDS虽然保留了C以”\0”结尾的惯例，但并不以此来识别字符串是否结束，可以说数据在写入SDS是什么样的，它被读取出来就是什么样的。因此二进制安全的SDS可以保存任意格式的二进制数据。 兼容部分的C字符串函数]]></content>
       <categories>

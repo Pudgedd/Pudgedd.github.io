@@ -109,14 +109,14 @@
   <meta name="description" content="链表链表提供了高效的节点重排能力，以及顺序性节点的访问方式，并且可以通过增删节点来灵活地调整长度。Redis中的列表键(list)的底层实现之一就是链表。当一个链表键包含了较多元素，又或者列表中包含的元素都是较长的字符串时，Redis就会使用链表作为列表键的底层实现。（实际上链表还被广泛用于实现Redis的各种功能，比如发布与订阅、慢查询、监视器等）">
 <meta name="keywords" content="Redis,数据结构,链表">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis数据结构与对象二">
+<meta property="og:title" content="Redis数据结构与对象(2)——链表">
 <meta property="og:url" content="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(2)——链表/index.html">
 <meta property="og:site_name" content="D&#39;blog">
 <meta property="og:description" content="链表链表提供了高效的节点重排能力，以及顺序性节点的访问方式，并且可以通过增删节点来灵活地调整长度。Redis中的列表键(list)的底层实现之一就是链表。当一个链表键包含了较多元素，又或者列表中包含的元素都是较长的字符串时，Redis就会使用链表作为列表键的底层实现。（实际上链表还被广泛用于实现Redis的各种功能，比如发布与订阅、慢查询、监视器等）">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-31T15:26:09.442Z">
+<meta property="og:updated_time" content="2019-01-31T15:37:20.805Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis数据结构与对象二">
+<meta name="twitter:title" content="Redis数据结构与对象(2)——链表">
 <meta name="twitter:description" content="链表链表提供了高效的节点重排能力，以及顺序性节点的访问方式，并且可以通过增删节点来灵活地调整长度。Redis中的列表键(list)的底层实现之一就是链表。当一个链表键包含了较多元素，又或者列表中包含的元素都是较长的字符串时，Redis就会使用链表作为列表键的底层实现。（实际上链表还被广泛用于实现Redis的各种功能，比如发布与订阅、慢查询、监视器等）">
 
 
@@ -134,7 +134,7 @@
   };
 </script>
 
-  <title>Redis数据结构与对象二 | D'blog</title>
+  <title>Redis数据结构与对象(2)——链表 | D'blog</title>
   
 
 
@@ -400,7 +400,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis数据结构与对象二
+          <h1 class="post-title" itemprop="name headline">Redis数据结构与对象(2)——链表
 
               
             
@@ -426,7 +426,7 @@
                 
               
 
-              <time title="创建时间：2019-01-31 23:16:58 / 修改时间：23:26:09" itemprop="dateCreated datePublished" datetime="2019-01-31T23:16:58+08:00">2019-01-31</time>
+              <time title="创建时间：2019-01-31 23:16:58 / 修改时间：23:37:20" itemprop="dateCreated datePublished" datetime="2019-01-31T23:16:58+08:00">2019-01-31</time>
             
 
             
@@ -578,8 +578,8 @@ redis&gt;LRANGE integers 0 3
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/28/Redis数据结构与对象(1)——简单动态字符串SDS/" rel="next" title="Redis数据结构与对象（一）——简单动态字符串SDS">
-                <i class="fa fa-chevron-left"></i> Redis数据结构与对象（一）——简单动态字符串SDS
+              <a href="/2018/12/28/Redis数据结构与对象(1)——简单动态字符串SDS/" rel="next" title="Redis数据结构与对象(1)——简单动态字符串SDS">
+                <i class="fa fa-chevron-left"></i> Redis数据结构与对象(1)——简单动态字符串SDS
               </a>
             
           </div>
@@ -930,7 +930,7 @@ redis&gt;LRANGE integers 0 3
       var disqus_config = function () {
         this.page.url = "https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(2)——链表/";
         this.page.identifier = "2019/01/31/Redis数据结构与对象(2)——链表/";
-        this.page.title = 'Redis数据结构与对象二';
+        this.page.title = 'Redis数据结构与对象(2)——链表';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');

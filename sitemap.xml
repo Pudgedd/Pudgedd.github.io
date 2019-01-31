@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://pudgedd.github.io/2019/01/31/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1(2)%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8/</loc>
+    
+    <lastmod>2019-01-31T15:37:20.805Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://pudgedd.github.io/2018/12/28/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1(1)%E2%80%94%E2%80%94%E7%AE%80%E5%8D%95%E5%8A%A8%E6%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2SDS/</loc>
     
-    <lastmod>2019-01-31T15:33:01.368Z</lastmod>
+    <lastmod>2019-01-31T15:36:55.394Z</lastmod>
     
   </url>
   
@@ -26,13 +33,6 @@
     <loc>https://pudgedd.github.io/2019/01/31/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1(5)%E2%80%94%E2%80%94%E6%95%B4%E6%95%B0%E9%9B%86%E5%90%88/</loc>
     
     <lastmod>2019-01-31T15:30:03.536Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://pudgedd.github.io/2019/01/31/Redis%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E5%AF%B9%E8%B1%A1(2)%E2%80%94%E2%80%94%E9%93%BE%E8%A1%A8/</loc>
-    
-    <lastmod>2019-01-31T15:26:09.442Z</lastmod>
     
   </url>
   
