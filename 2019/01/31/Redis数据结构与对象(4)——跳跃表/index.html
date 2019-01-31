@@ -106,21 +106,21 @@
 
 
 
-  <meta name="description" content="1. 数据结构与对象1.1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。">
-<meta name="keywords" content="Redis,数据结构">
+  <meta name="description" content="1.4 跳跃表跳跃表: (skiplist)是一种有序的数据结构，支持平均O(logN)、最坏O(N)复杂度的节点查找，还可以通过顺序性操作来批量处理节点。大部分情况下，跳跃表的效率可以和平衡树相媲美，且实现更为简单。">
+<meta name="keywords" content="Redis,数据结构,跳跃表">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis数据结构与对象一">
-<meta property="og:url" content="https://pudgedd.github.io/2018/12/28/Redis数据结构与对象一/index.html">
+<meta property="og:title" content="Redis数据结构与对象(4)——跳跃表">
+<meta property="og:url" content="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(4)——跳跃表/index.html">
 <meta property="og:site_name" content="D&#39;blog">
-<meta property="og:description" content="1. 数据结构与对象1.1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。">
+<meta property="og:description" content="1.4 跳跃表跳跃表: (skiplist)是一种有序的数据结构，支持平均O(logN)、最坏O(N)复杂度的节点查找，还可以通过顺序性操作来批量处理节点。大部分情况下，跳跃表的效率可以和平衡树相媲美，且实现更为简单。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://odwv9d2u8.bkt.clouddn.com/17-10-3/32571293.jpg">
 <meta property="og:image" content="http://odwv9d2u8.bkt.clouddn.com/17-10-3/6620991.jpg">
 <meta property="og:image" content="https://images2015.cnblogs.com/blog/878314/201701/878314-20170130211615120-320409943.png">
-<meta property="og:updated_time" content="2018-12-28T16:03:06.377Z">
+<meta property="og:updated_time" content="2019-01-31T15:30:22.188Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis数据结构与对象一">
-<meta name="twitter:description" content="1. 数据结构与对象1.1 简单动态字符串-SDSRedis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。">
+<meta name="twitter:title" content="Redis数据结构与对象(4)——跳跃表">
+<meta name="twitter:description" content="1.4 跳跃表跳跃表: (skiplist)是一种有序的数据结构，支持平均O(logN)、最坏O(N)复杂度的节点查找，还可以通过顺序性操作来批量处理节点。大部分情况下，跳跃表的效率可以和平衡树相媲美，且实现更为简单。">
 <meta name="twitter:image" content="http://odwv9d2u8.bkt.clouddn.com/17-10-3/32571293.jpg">
 
 
@@ -128,7 +128,7 @@
 
 
 
-  <link rel="canonical" href="https://pudgedd.github.io/2018/12/28/Redis数据结构与对象一/">
+  <link rel="canonical" href="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(4)——跳跃表/">
 
 
 
@@ -138,7 +138,7 @@
   };
 </script>
 
-  <title>Redis数据结构与对象一 | D'blog</title>
+  <title>Redis数据结构与对象(4)——跳跃表 | D'blog</title>
   
 
 
@@ -387,7 +387,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://pudgedd.github.io/2018/12/28/Redis数据结构与对象一/">
+    <link itemprop="mainEntityOfPage" href="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(4)——跳跃表/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kendall Luo">
@@ -404,7 +404,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis数据结构与对象一
+          <h1 class="post-title" itemprop="name headline">Redis数据结构与对象(4)——跳跃表
 
               
             
@@ -430,24 +430,12 @@
                 
               
 
-              <time title="创建时间：2018-12-28 23:51:22" itemprop="dateCreated datePublished" datetime="2018-12-28T23:51:22+08:00">2018-12-28</time>
+              <time title="创建时间：2019-01-31 23:27:18 / 修改时间：23:30:22" itemprop="dateCreated datePublished" datetime="2019-01-31T23:27:18+08:00">2019-01-31</time>
             
 
             
               
 
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2018-12-29 00:03:06" itemprop="dateModified" datetime="2018-12-29T00:03:06+08:00">2018-12-29</time>
               
             
           </span>
@@ -479,9 +467,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/12/28/Redis数据结构与对象一/#comments" itemprop="discussionUrl">
+                <a href="/2019/01/31/Redis数据结构与对象(4)——跳跃表/#comments" itemprop="discussionUrl">
                 
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2018/12/28/Redis数据结构与对象一/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/01/31/Redis数据结构与对象(4)——跳跃表/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -510,7 +498,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">8.5k</span>
+                <span title="本文字数">3.8k</span>
               
 
               
@@ -524,7 +512,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">8 分钟</span>
+                <span title="阅读时长">3 分钟</span>
               
             </div>
           
@@ -544,55 +532,7 @@
       
 
       
-        <h2 id="1-数据结构与对象"><a href="#1-数据结构与对象" class="headerlink" title="1. 数据结构与对象"></a>1. 数据结构与对象</h2><h3 id="1-1-简单动态字符串-SDS"><a href="#1-1-简单动态字符串-SDS" class="headerlink" title="1.1 简单动态字符串-SDS"></a>1.1 简单动态字符串-SDS</h3><p>Redis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。<br><a id="more"></a><br>当你在redis客户端执行命令：</p>
-<pre><code>redis&gt;SET msg &quot;hello world&quot;
-OK
-</code></pre><p>那么Redis将会创建一个新的键值对，而这个键值对的键”msg”和键值对的值”hello world”底层实现就是保存了字符串的SDS。</p>
-<p>SDS定义<br>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">sdshdr</span>&#123;</span></span><br><span class="line">        <span class="keyword">int</span> len; <span class="comment">//记录buf数组中已使用的字节的数量</span></span><br><span class="line">        <span class="keyword">int</span> <span class="built_in">free</span>; <span class="comment">//记录buf数组中未使用的字节的数量</span></span><br><span class="line">        <span class="keyword">char</span> buf[]; <span class="comment">//保存字符串char的数组</span></span><br><span class="line">    &#125;</span><br><span class="line">``` </span><br><span class="line">SDS的结构其实就是一个字节数组，如字符串<span class="string">"redis"</span>，那么buf就是一个保存了[<span class="string">'r'</span>,<span class="string">'e'</span>,<span class="string">'d'</span>,<span class="string">'i'</span>,<span class="string">'s'</span>,<span class="string">'\0'</span>]的<span class="keyword">char</span>数组（<span class="string">'\0'</span>是C语言的一个惯例，redis遵守这个惯例是为了直接重用C库里的一些字符串函数）</span><br><span class="line"></span><br><span class="line">#### 为什么要用SDS？</span><br><span class="line">C语言使用的字符串方式，并不能满足Redis对字符串安全性、效率以及功能的要求。</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> **常数复杂度获取字符串长度**：C获取字符串长度复杂度为O(*N*)，而SDS保存了len属性，获取字符串长度复杂度为O(<span class="number">1</span>)</span><br><span class="line"> </span><br><span class="line"><span class="number">2.</span> **杜绝缓冲区溢出**：C字符串不记录自身长度带来的另一个问题就是容易造成缓冲区溢出，例如内存中紧邻的s1-<span class="string">"redis"</span>和s2-<span class="string">"mongo"</span>，如果此时执行`<span class="built_in">strcat</span>(s1,<span class="string">"cluster"</span>)`，且没有在此之前为s1分配足够的空间，那么s2保存的内容将被意外的修改。与C不同，当SDS的API需要对SDS进行修改时，API会先检查SDS的空间是否满足修改所需，不满足的话，API会自动将SDS的空间扩展至所需修改的大小，然后再进行实际的修改，所以SDS不需要手动修改SDS的空间大小，也不会出现缓冲区溢出问题。</span><br><span class="line"></span><br><span class="line"><span class="number">3.</span> **减少修改字符串时带来的内存重分配次数**：C在每次进行字符串修改时（增长或缩短），总要进行一次内存重分配操作，而内存重分配涉及复杂的算法，并且可能需要执行系统调用，所以比较耗时。为了避免这个缺陷，SDS通过未使用空间接触字符串长度和底层数组长度的关联。buf的数组长度可能包含未使用的字节，由<span class="built_in">free</span>属性记录。实际上SDS用未使用空间实现了两种优化策略。</span><br><span class="line"> <span class="number">3.1</span> **空间预分配**：当SDS的API对一个SDS进行修改，并且需要对SDS进行空间扩展的时候，程序不仅会为SDS分配修改所必须的空间，还会分配额外的未使用空间。若修改后的SDS长度（len属性）小于<span class="number">1</span>MB，那么分配和len属性同样大小的未使用空间，即buf的实际长度为`len+len+<span class="number">1b</span>yte`;若长度大于<span class="number">1</span>MB，那么程序会分配<span class="number">1</span>MB的未使用空间，即buf的实际长度为`lne+<span class="number">1</span>MB+<span class="number">1b</span>yte`。</span><br><span class="line"> <span class="number">3.2</span> **惰性空间释放**：执行字符串缩短操作后，SDS并不会立即释放多余的空间，而是保留作为未使用空间，以减少内存重分配操作，并未将来可能的增长提供优化。当然SDS也提供主动释放空间的API。</span><br><span class="line"></span><br><span class="line"><span class="number">4.</span> **二进制安全**：C以<span class="string">"\0"</span>为结尾标记，若有使用此特殊字符的字符串，则无法用C字符串保存。而SDS虽然保留了C以<span class="string">"\0"</span>结尾的惯例，但并不以此来识别字符串是否结束，可以说数据在写入SDS是什么样的，它被读取出来就是什么样的。因此二进制安全的SDS可以保存任意格式的二进制数据。</span><br><span class="line"></span><br><span class="line"><span class="number">5.</span> **兼容部分的C字符串函数**</span><br><span class="line"> </span><br><span class="line">### <span class="number">1.2</span> 链表</span><br><span class="line">链表提供了高效的节点重排能力，以及顺序性节点的访问方式，并且可以通过增删节点来灵活地调整长度。Redis中的列表键的底层实现之一就是链表。当一个链表键包含了较多元素，又或者列表中包含的元素都是较长的字符串时，Redis就会使用链表作为列表键的底层实现。（实际上链表还被广泛用于实现Redis的各种功能，比如发布与订阅、慢查询、监视器等）</span><br><span class="line"></span><br><span class="line">    redis&gt;LLEN integers</span><br><span class="line">    (integer) <span class="number">1024</span></span><br><span class="line">    redis&gt;LRANGE integers <span class="number">0</span> <span class="number">3</span></span><br><span class="line">    <span class="number">1</span>)<span class="string">"1"</span></span><br><span class="line">    <span class="number">2</span>)<span class="string">"2"</span></span><br><span class="line">    <span class="number">3</span>)<span class="string">"3"</span></span><br><span class="line">    </span><br><span class="line">integers列表键底层实现就是一个链表，每个节点都保存了一个整数值。</span><br><span class="line"></span><br><span class="line">Redis链表的实现</span><br><span class="line">: 每个链表节点都包含了指向prev和next的两个指针，同时还有保存节点值的value指针。</span><br><span class="line">``` c</span><br><span class="line">    <span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span>&#123;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">prev</span>;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">listNode</span> *<span class="title">next</span>;</span></span><br><span class="line">        <span class="keyword">void</span> *value;</span><br><span class="line">    &#125;listNode;</span><br></pre></td></tr></table></figure></p>
-<p>Redis list结构<br>: list结构为链表提供了表头指针，表尾指针，以及链表长度计数器len，这么做的好处是获取prev和next节点、获取head和tail节点、获取链表长度的时间复杂度均为O(1)。此外还提供了三个特定函数。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">list</span>&#123;</span></span><br><span class="line">    listNode *head;</span><br><span class="line">    listNode *tail;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> len;</span><br><span class="line">    <span class="keyword">void</span> *(*dup)(<span class="keyword">void</span> *ptr);</span><br><span class="line">    <span class="keyword">void</span> *(*<span class="built_in">free</span>)(<span class="keyword">void</span> *ptr);</span><br><span class="line">    <span class="keyword">int</span> *(*match)(<span class="keyword">void</span> *ptr,<span class="keyword">void</span> *key);</span><br><span class="line">&#125;<span class="built_in">list</span>;</span><br></pre></td></tr></table></figure></p>
-<h3 id="1-3-字典"><a href="#1-3-字典" class="headerlink" title="1.3 字典"></a>1.3 字典</h3><p>字典，又称为符号表(symbol table)、关联数组(associative array)或映射(map)，是一种用于保存键值对的抽象数据结构。字典中的每个键都是独一无二的，程序可以在字典中通过键查找与之关联的值，或进行更新删除等操作。Redis的数据库就是使用字典来作为底层实现的。例如：</p>
-<pre><code>redis&gt;SET msg &quot;hello world&quot;
-OK
-</code></pre><p>在数据库中创建了一个键为”msg”,值为”hello world”的键值对，保存在字典中。<br>除了用来表示数据库外，字典还是<strong>哈希键</strong>的底层实现之一。</p>
-<pre><code>redis&gt;  HMSET user name &quot;kendall&quot; sex &quot;man&quot;
-OK
-redis&gt;  HGETALL user
-1) &quot;name&quot;
-2) &quot;kendall&quot;
-3) &quot;sex&quot;
-4) &quot;man&quot;
-</code></pre><p><code>user</code>就是一个一个包含2个键值对的哈希键。</p>
-<p>Redis的字典使用哈希表作为底层实现，一个哈希表可以有多个哈希表节点，而每个哈希表节点就保存了字典中的一个键值对。</p>
-<p>哈希表<br>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span>&#123;</span></span><br><span class="line">    dictEntry **table;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;<span class="comment">//哈希表大小掩码，总是等于size-1，用于计算索引值</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> used;</span><br><span class="line">&#125;dictht;</span><br></pre></td></tr></table></figure></p>
-<p><code>table</code>是一个数组，数组中的每一个元素都是一个指向dictEntry结构的指针，每个dictEntry结构都保存着一个键值对。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span>&#123;</span></span><br><span class="line">    <span class="keyword">void</span> key;</span><br><span class="line">    <span class="keyword">union</span>&#123;</span><br><span class="line">        <span class="keyword">void</span> *val;</span><br><span class="line">        <span class="keyword">uint64_t</span> u64;</span><br><span class="line">        <span class="keyword">int64_t</span> s64;</span><br><span class="line">    &#125;v;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span><span class="comment">//哈希冲突时，采用链表法解决</span></span><br><span class="line">&#125;dictEntry;</span><br></pre></td></tr></table></figure></p>
-<p>字典<br>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span>&#123;</span></span><br><span class="line">    dictType *type;<span class="comment">//类型特定函数</span></span><br><span class="line">    <span class="keyword">void</span> *privdata;<span class="comment">//私有数据</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];<span class="comment">//哈希表</span></span><br><span class="line">    <span class="keyword">int</span> trehashidx;<span class="comment">//rehash索引，当rehash不进行时，为-1；</span></span><br><span class="line">&#125;dict;</span><br></pre></td></tr></table></figure></p>
-<p>了解：<code>type</code>属性是指向dictType结构的指针，每个dictType结构保存了一簇用于操作特定类型键值对的函数，<code>privdate</code>保存了传给那些函数的可选参数。</p>
-<p><code>ht</code>是一个长度为2的数组，包含了两个dictht哈希表。一般情况下字典只使用<code>ht[0]</code>哈希表，<code>ht[1]</code>只有在进行rehash的时候使用。<code>rehashidx</code>记录了rehash的进度。</p>
-<p>哈希算法<br>: 当要将一个新的键值对添加到字典时，程序需要先根据键值对的键计算出哈希值和索引值，然后根据索引值将节点放到韩系标书组的指定索引上面。Redis使用MurmurHash2算法来计算哈希值(Redis v3.0)。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hash = dict-&gt;type-&gt;hashFunction(key);</span><br><span class="line">index = hash &amp; dict-&gt;ht[x].sizemask;</span><br></pre></td></tr></table></figure></p>
-<h4 id="解决键冲突："><a href="#解决键冲突：" class="headerlink" title="解决键冲突："></a>解决键冲突：</h4><p>当有两个或以上数量的键被分配到了哈希表数组的同一个索引上时，我们称这些键发生了冲突。Redis的哈希表使用了<strong>链地址法</strong>解决键冲突，每个哈希表节点都由一个next指针，被分配到同一个索引上的节点可以用next连接成单向链表，新加入的节点总是排在所有节点的前面。</p>
-<h4 id="扩容（收缩）和rehash"><a href="#扩容（收缩）和rehash" class="headerlink" title="扩容（收缩）和rehash"></a>扩容（收缩）和rehash</h4><p>哈希表的键值对会逐渐的增加或减少，为了让哈希表的负载因子(load factor)，维持在一个合理的范围，程序需要对哈希表进行相应的扩容或收缩。当满足<br>以下两点任意一点时，扩容开始。当满足负<strong>载因子小于0.1</strong>时，进行收缩。</p>
-<ol>
-<li>服务器目前没有在执行<em>BGSAVE</em>命令或者<em>BGREWRITEAOF</em>命令，并且哈希表的负载因子大于等于1</li>
-<li>服务器目前正在执行<em>BGSAVE</em>命令或者<em>BGREWRITEAOF</em>命令，并且哈希表的负载因子大于等于5</li>
-</ol>
-<p>其中负载因子计算方法为：</p>
-<pre><code>load_factor = ht[0].used/dictht.size
-</code></pre><p>步骤如下：</p>
-<ol>
-<li>为字典的<code>ht[1]</code>分配空间，如果执行的是扩展操作，那么<code>ht[1]</code>的大小为大于等于<code>ht[0].used*2</code>的最小2^n；若是收缩操作，那么<code>ht[1]</code>的大小为大于等于<code>ht[0].used</code>的最小2^n。</li>
-<li>将保存在<code>ht[0]</code>中的所有键值对rehash（重新计算键的哈希和索引）到<code>ht[1]</code>上，并将键值对放置到<code>ht[1]</code>。</li>
-<li>当<code>ht[0]</code>的所有键值对都迁移到了<code>ht[1]</code>上后，释放<code>ht[0]</code>，将<code>ht[1]</code>设置为<code>ht[0]</code>，并在<code>ht[1]</code>新建一个空白的哈希表，为下一次rehash做准备。</li>
-</ol>
-<p>Redis的rehash时<strong>渐进式</strong>的，即不是一次性、集中式完成的，而是分多次完成。这样做是避免键值对过多时，庞大的计算量导致服务器停止服务。渐进式的步骤如下：</p>
-<ol>
-<li>为<code>ht[1]</code>分配空间</li>
-<li>在字典中维持<code>rehashidx</code>,将其值设置为0，表示rehash正式开始</li>
-<li>在rehash期间，每次对字典的增删查改，程序都会顺带将<code>ht[0]</code>哈希表在<code>rehashidx</code>索引上的所有键值对rehash到<code>ht[1]</code>，当rehash工作完成后，<code>rehashidx</code>增加1</li>
-<li>随着字典操作不断执行，最终某个时间上，ht[0]的所有键值对都会被rehash至<code>ht[1]</code>,<code>rehashidx</code>设为-1，代表rehash完成。</li>
-<li>rehash过程中，字典会同时使用两个哈希表，如<code>ht[0]</code>没找到，会继续去<code>ht[1]</code>找。而添加一律会被保存在<code>ht[1]</code>。</li>
-</ol>
-<h3 id="1-4-跳跃表"><a href="#1-4-跳跃表" class="headerlink" title="1.4 跳跃表"></a>1.4 跳跃表</h3><p>跳跃表<br>: (skiplist)是一种有序的数据结构，支持平均<em>O</em>(log<em>N</em>)、最坏<em>O</em>(<em>N</em>)复杂度的节点查找，还可以通过顺序性操作来批量处理节点。大部分情况下，跳跃表的效率可以和平衡树相媲美，且实现更为简单。</p>
-<p>Redis使用跳跃表作为有序集合键(zset)的底层实现之一，如果一个有序集合包含的<strong>元素数量较多</strong>，又或者有序集合中的元素成员(member)是比<strong>较长的字符串</strong>时，Redis就会使用跳跃表来作为有序集合键的底层实现。</p>
+        <h2 id="1-4-跳跃表"><a href="#1-4-跳跃表" class="headerlink" title="1.4 跳跃表"></a>1.4 跳跃表</h2><p>跳跃表<br>: (skiplist)是一种有序的数据结构，支持平均<em>O</em>(log<em>N</em>)、最坏<em>O</em>(<em>N</em>)复杂度的节点查找，还可以通过顺序性操作来批量处理节点。大部分情况下，跳跃表的效率可以和平衡树相媲美，且实现更为简单。<br><a id="more"></a><br>Redis使用跳跃表作为<strong>有序集合键(zset)</strong>的底层实现之一，如果一个有序集合包含的<strong>元素数量较多</strong>，又或者有序集合中的元素成员(member)是比<strong>较长的字符串</strong>时，Redis就会使用跳跃表来作为有序集合键的底层实现。</p>
 <p>例如<br>: fruit-price是一个有序集合键，这个有序集合以水果名为成员，水果价钱为分值，保存了130款水果的价钱</p>
 <pre><code>redis&gt; ZRANGE fruit-price 0 2 WITHSCORES
 1)&quot;banana&quot;
@@ -605,7 +545,7 @@ redis&gt; ZCARD fruit-price
 (integer) 130
 </code></pre><p>fruit-price有序集合的所有数据都保存在一个跳跃表里面，其中每个跳跃表节点(node)都保存了一款水果的价钱信息，所有水果按价钱的高低从低到高在跳跃表里面排序。</p>
 <p>和链表、字典等数据结构被广泛地应用在Redis内部不一样，Redis只在两个地方用到了跳跃表，一个是实现有序集合键，另一个是在集群节点中用作内部数据结构，除此之外跳跃表在Redis中没有其他用途。</p>
-<h4 id="跳跃表原理"><a href="#跳跃表原理" class="headerlink" title="跳跃表原理"></a>跳跃表原理</h4><p>性质<br>: </p>
+<h3 id="跳跃表原理"><a href="#跳跃表原理" class="headerlink" title="跳跃表原理"></a>跳跃表原理</h3><p>性质<br>: </p>
 <ol>
 <li>由很多层结构组成；</li>
 <li>每一层都是一个有序的链表，排列顺序为由高层到底层，都至少包含两个链表节点，分别是前面的head节点和后面的nil节点；</li>
@@ -619,7 +559,7 @@ redis&gt; ZCARD fruit-price
 <p>插入<br>: 既然要插入，首先需要确定插入的层数，这里有不一样的方法。1. 抛硬币法，只要是正面就累加，直到遇见反面才停止，最后记录正面的次数并将其作为要添加新元素的层；2. 统计概率，先给定一个概率p，产生一个0到1之间的随机数，如果这个随机数小于p，则将高度加1，直到产生的随机数大于概率p才停止，根据给出的结论，当概率为1/2或者是1/4的时候，整体的性能会比较好（其实当p为1/2的时候，也就是抛硬币的方法）。</p>
 <p>当确定好要插入的层数以后，则需要将元素都插入到从最底层到第k层。</p>
 <p>删除<br>: 在各个层中找到包含指定值的节点，然后将节点从链表中删除即可，如果删除以后只剩下头尾两个节点，则删除这一层。</p>
-<h4 id="跳跃表的实现"><a href="#跳跃表的实现" class="headerlink" title="跳跃表的实现"></a>跳跃表的实现</h4><p>Redis的跳跃表由<code>redis.h/zskiplistNode</code>和<code>redis.h/zskiplist</code>两个结构定义，其中<code>zskiplistNode</code>结构用于表示跳跃表节点，而<code>zskiplist</code>结构则用于保存跳跃表节点的相关信息，比如结点的数量，指向表头节点和表位节点的指针等等。</p>
+<h3 id="跳跃表的实现"><a href="#跳跃表的实现" class="headerlink" title="跳跃表的实现"></a>跳跃表的实现</h3><p>Redis的跳跃表由<code>redis.h/zskiplistNode</code>和<code>redis.h/zskiplist</code>两个结构定义，其中<code>zskiplistNode</code>结构用于表示跳跃表节点，而<code>zskiplist</code>结构则用于保存跳跃表节点的相关信息，比如结点的数量，指向表头节点和表位节点的指针等等。</p>
 <p><img src="https://images2015.cnblogs.com/blog/878314/201701/878314-20170130211615120-320409943.png" alt="一个跳跃表"></p>
 <p>上图展示了一个跳跃表示例，位于图片最左边的是<code>zskiplist</code>结构，该结构包含以下属性：</p>
 <ul>
@@ -648,6 +588,13 @@ redis&gt; ZCARD fruit-price
 </ol>
 <p>跳跃表<br>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">zskiplist</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">zskiplistNode</span> *<span class="title">header</span>, *<span class="title">tail</span>;</span>    <span class="comment">//header指向跳跃表的表头节点，tail指向跳跃表的表尾节点</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> length;   <span class="comment">//记录跳跃表的长度，也即是，跳跃表目前包含节点的数量(表头节点不计算在内)</span></span><br><span class="line">    <span class="keyword">int</span> level;  <span class="comment">//记录目前跳跃表内，层数最大的那个节点的层数(表头节点的层数不计算在内)</span></span><br><span class="line">&#125; zskiplist;</span><br></pre></td></tr></table></figure></p>
 <p>header和tail指针分别指向跳跃表的表头和表尾节点，通过这两个指针，程序定位表头节点和表尾节点的复杂度为<em>O</em>(1)。<br>通过length属性，可以在<em>O</em>(1)复杂度内返回跳跃表的长度。<br>level属性用于在<em>O</em>(1)复杂度内获取跳跃表中层高最大的那个节点的层数量（不计算表头节点的层高）。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>跳跃表是有序集合的底层实现之一</li>
+<li>Redis的跳跃表实现由<code>zskiplist</code>和<code>zskiplistNode</code>两个结构组成，其中<code>zskiplist</code>用于保存跳跃表信息（表头节点、表尾节点、长度），而<code>zskiplistNode</code>则用于表示跳跃表节点</li>
+<li>每个跳跃表节点的层高都是1至32之间的<strong>随机数</strong></li>
+<li>在同一个跳跃表中，多个节点可以包含相同的分值，但每个节点的成员对象（指向SDS的一个指针）必须是唯一的</li>
+<li>跳跃表中的节点按照分值大小进行排序，当分值相同时，节点按照成员对象在字典序中的大小进行排序</li>
+</ul>
 
       
     </div>
@@ -675,6 +622,8 @@ redis&gt; ZCARD fruit-price
           
             <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
+            <a href="/tags/跳跃表/" rel="tag"># 跳跃表</a>
+          
         </div>
       
 
@@ -682,6 +631,26 @@ redis&gt; ZCARD fruit-price
       
       
 
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/31/Redis数据结构与对象(3)——字典/" rel="next" title="Redis数据结构与对象(3)——字典">
+                <i class="fa fa-chevron-left"></i> Redis数据结构与对象(3)——字典
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/31/Redis数据结构与对象(5)——整数集合/" rel="prev" title="Redis数据结构与对象(5)——整数集合">
+                Redis数据结构与对象(5)——整数集合 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
 
       
@@ -748,7 +717,7 @@ redis&gt; ZCARD fruit-price
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-count">5</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -780,7 +749,17 @@ redis&gt; ZCARD fruit-price
                     
                       
                     
-                    <span class="site-state-item-count">2</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">7</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -857,7 +836,7 @@ redis&gt; ZCARD fruit-price
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">9k</span>
+    <span title="站点总字数">11k</span>
   
 
   
@@ -866,7 +845,7 @@ redis&gt; ZCARD fruit-price
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">8 分钟</span>
+    <span title="站点阅读时长">10 分钟</span>
   
 </div>
 
@@ -1006,9 +985,9 @@ redis&gt; ZCARD fruit-price
   
     <script>
       var disqus_config = function () {
-        this.page.url = "https://pudgedd.github.io/2018/12/28/Redis数据结构与对象一/";
-        this.page.identifier = "2018/12/28/Redis数据结构与对象一/";
-        this.page.title = 'Redis数据结构与对象一';
+        this.page.url = "https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(4)——跳跃表/";
+        this.page.identifier = "2019/01/31/Redis数据结构与对象(4)——跳跃表/";
+        this.page.title = 'Redis数据结构与对象(4)——跳跃表';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');

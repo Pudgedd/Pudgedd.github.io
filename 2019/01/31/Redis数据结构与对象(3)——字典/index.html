@@ -106,20 +106,25 @@
 
 
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="D&#39;blog">
-<meta property="og:url" content="https://pudgedd.github.io/archives/2018/12/index.html">
+  <meta name="description" content="1.3 字典字典，又称为符号表(symbol table)、关联数组(associative array)或映射(map)，是一种用于保存键值对的抽象数据结构。字典中的每个键都是独一无二的，程序可以在字典中通过键查找与之关联的值，或进行更新删除等操作。">
+<meta name="keywords" content="Redis,数据结构,字典">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis数据结构与对象(3)——字典">
+<meta property="og:url" content="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(3)——字典/index.html">
 <meta property="og:site_name" content="D&#39;blog">
+<meta property="og:description" content="1.3 字典字典，又称为符号表(symbol table)、关联数组(associative array)或映射(map)，是一种用于保存键值对的抽象数据结构。字典中的每个键都是独一无二的，程序可以在字典中通过键查找与之关联的值，或进行更新删除等操作。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-31T15:30:35.512Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="D&#39;blog">
+<meta name="twitter:title" content="Redis数据结构与对象(3)——字典">
+<meta name="twitter:description" content="1.3 字典字典，又称为符号表(symbol table)、关联数组(associative array)或映射(map)，是一种用于保存键值对的抽象数据结构。字典中的每个键都是独一无二的，程序可以在字典中通过键查找与之关联的值，或进行更新删除等操作。">
 
 
 
 
 
 
-  <link rel="canonical" href="https://pudgedd.github.io/archives/2018/12/">
+  <link rel="canonical" href="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(3)——字典/">
 
 
 
@@ -129,7 +134,7 @@
   };
 </script>
 
-  <title>归档 | D'blog</title>
+  <title>Redis数据结构与对象(3)——字典 | D'blog</title>
   
 
 
@@ -177,7 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -270,7 +275,7 @@
         
         
           
-          <li class="menu-item menu-item-archives menu-item-active">
+          <li class="menu-item menu-item-archives">
 
     
     
@@ -317,28 +322,6 @@
   
     
 
-    
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-      
-      
-    
-    
-
-  
-
-
   
 
   
@@ -384,78 +367,300 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
 
-      
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        嗯..! 目前共计 5 篇日志。 继续努力。
-      </span>
-      
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
-
-        
+  
 
   <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(3)——字典/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Kendall Luo">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://avatars1.githubusercontent.com/u/22662844?s=400&u=7447116e6605b7953a5ffe754d2eb65b0749aa9e&v=4#/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="D'blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/12/28/Redis数据结构与对象(1)——简单动态字符串SDS/" itemprop="url">
-              
-                <span itemprop="name">Redis数据结构与对象（一）——简单动态字符串SDS</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Redis数据结构与对象(3)——字典
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-28T23:51:22+08:00" content="2018-12-28">
-          12-28
-        </time>
-      </div>
+              
+            
+          </h1>
+        
 
-    </header>
-  </article>
+        <div class="post-meta">
+          <span class="post-time">
 
+            
+            
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-01-31 23:23:17 / 修改时间：23:30:35" itemprop="dateCreated datePublished" datetime="2019-01-31T23:23:17+08:00">2019-01-31</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/01/31/Redis数据结构与对象(3)——字典/#comments" itemprop="discussionUrl">
+                
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/01/31/Redis数据结构与对象(3)——字典/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="post-meta-item-icon">
+            <i class="fa fa-eye"></i>
+             阅读次数： 
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>
+            </span>
+          
+
+          
+            <div class="post-symbolscount">
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">本文字数：</span>
+                
+                <span title="本文字数">3k</span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">3 分钟</span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h2 id="1-3-字典"><a href="#1-3-字典" class="headerlink" title="1.3 字典"></a>1.3 字典</h2><p>字典，又称为符号表(symbol table)、关联数组(associative array)或映射(map)，是一种用于保存键值对的抽象数据结构。字典中的每个键都是独一无二的，程序可以在字典中通过键查找与之关联的值，或进行更新删除等操作。<br><a id="more"></a><br>Redis的数据库就是使用字典来作为底层实现的。例如：</p>
+<pre><code>redis&gt;SET msg &quot;hello world&quot;
+OK
+</code></pre><p>在数据库中创建了一个键为”msg”,值为”hello world”的键值对，保存在字典中。<br>除了用来表示数据库外，字典还是<strong>哈希键</strong>的底层实现之一。</p>
+<pre><code>redis&gt;  HMSET user name &quot;kendall&quot; sex &quot;man&quot;
+OK
+redis&gt;  HGETALL user
+1) &quot;name&quot;
+2) &quot;kendall&quot;
+3) &quot;sex&quot;
+4) &quot;man&quot;
+</code></pre><p><code>user</code>就是一个一个包含2个键值对的哈希键。</p>
+<p>Redis的字典使用哈希表作为底层实现，一个哈希表可以有多个哈希表节点，而每个哈希表节点就保存了字典中的一个键值对。</p>
+<p>哈希表<br>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictht</span>&#123;</span></span><br><span class="line">    dictEntry **table;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> size;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> sizemask;<span class="comment">//哈希表大小掩码，总是等于size-1，用于计算索引值</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> used;</span><br><span class="line">&#125;dictht;</span><br></pre></td></tr></table></figure></p>
+<p><code>table</code>是一个数组，数组中的每一个元素都是一个指向dictEntry结构的指针，每个dictEntry结构都保存着一个键值对。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span>&#123;</span></span><br><span class="line">    <span class="keyword">void</span> key;</span><br><span class="line">    <span class="keyword">union</span>&#123;</span><br><span class="line">        <span class="keyword">void</span> *val;</span><br><span class="line">        <span class="keyword">uint64_t</span> u64;</span><br><span class="line">        <span class="keyword">int64_t</span> s64;</span><br><span class="line">    &#125;v;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">dictEntry</span> *<span class="title">next</span>;</span><span class="comment">//哈希冲突时，采用链表法解决</span></span><br><span class="line">&#125;dictEntry;</span><br></pre></td></tr></table></figure></p>
+<p>字典<br>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">dict</span>&#123;</span></span><br><span class="line">    dictType *type;<span class="comment">//类型特定函数</span></span><br><span class="line">    <span class="keyword">void</span> *privdata;<span class="comment">//私有数据</span></span><br><span class="line">    dictht ht[<span class="number">2</span>];<span class="comment">//哈希表</span></span><br><span class="line">    <span class="keyword">int</span> trehashidx;<span class="comment">//rehash索引，当rehash不进行时，为-1；</span></span><br><span class="line">&#125;dict;</span><br></pre></td></tr></table></figure></p>
+<p>了解：<code>type</code>属性是指向dictType结构的指针，每个dictType结构保存了一簇用于操作特定类型键值对的函数，<code>privdate</code>保存了传给那些函数的可选参数。</p>
+<p><code>ht</code>是一个长度为2的数组，包含了两个dictht哈希表。一般情况下字典只使用<code>ht[0]</code>哈希表，<code>ht[1]</code>只有在进行rehash的时候使用。<code>rehashidx</code>记录了rehash的进度。</p>
+<p>哈希算法<br>: 当要将一个新的键值对添加到字典时，程序需要先根据键值对的键计算出哈希值和索引值，然后根据索引值将节点放到韩系标书组的指定索引上面。Redis使用MurmurHash2算法来计算哈希值(Redis v3.0)。<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hash = dict-&gt;type-&gt;hashFunction(key);</span><br><span class="line">index = hash &amp; dict-&gt;ht[x].sizemask;</span><br></pre></td></tr></table></figure></p>
+<h3 id="解决键冲突"><a href="#解决键冲突" class="headerlink" title="解决键冲突"></a>解决键冲突</h3><p>当有两个或以上数量的键被分配到了哈希表数组的同一个索引上时，我们称这些键发生了冲突。Redis的哈希表使用了<strong>链地址法</strong>解决键冲突，每个哈希表节点都由一个next指针，被分配到同一个索引上的节点可以用next连接成单向链表，新加入的节点总是排在所有节点的前面。</p>
+<h3 id="扩容（收缩）和rehash"><a href="#扩容（收缩）和rehash" class="headerlink" title="扩容（收缩）和rehash"></a>扩容（收缩）和rehash</h3><p>哈希表的键值对会逐渐的增加或减少，为了让哈希表的负载因子(load factor)，维持在一个合理的范围，程序需要对哈希表进行相应的扩容或收缩。当满足<br>以下两点任意一点时，扩容开始。当满足负<strong>载因子小于0.1</strong>时，进行收缩。</p>
+<ol>
+<li>服务器目前没有在执行<em>BGSAVE</em>命令或者<em>BGREWRITEAOF</em>命令，并且哈希表的负载因子大于等于1</li>
+<li>服务器目前正在执行<em>BGSAVE</em>命令或者<em>BGREWRITEAOF</em>命令，并且哈希表的负载因子大于等于5</li>
+</ol>
+<p>其中负载因子计算方法为：</p>
+<pre><code>load_factor = ht[0].used/dictht.size
+</code></pre><p>步骤如下：</p>
+<ol>
+<li>为字典的<code>ht[1]</code>分配空间，如果执行的是扩展操作，那么<code>ht[1]</code>的大小为大于等于<code>ht[0].used*2</code>的最小2^n；若是收缩操作，那么<code>ht[1]</code>的大小为大于等于<code>ht[0].used</code>的最小2^n。</li>
+<li>将保存在<code>ht[0]</code>中的所有键值对rehash（重新计算键的哈希和索引）到<code>ht[1]</code>上，并将键值对放置到<code>ht[1]</code>。</li>
+<li>当<code>ht[0]</code>的所有键值对都迁移到了<code>ht[1]</code>上后，释放<code>ht[0]</code>，将<code>ht[1]</code>设置为<code>ht[0]</code>，并在<code>ht[1]</code>新建一个空白的哈希表，为下一次rehash做准备。</li>
+</ol>
+<p>Redis的rehash时<strong>渐进式</strong>的，即不是一次性、集中式完成的，而是分多次完成。这样做是避免键值对过多时，庞大的计算量导致服务器停止服务。渐进式的步骤如下：</p>
+<ol>
+<li>为<code>ht[1]</code>分配空间</li>
+<li>在字典中维持<code>rehashidx</code>,将其值设置为0，表示rehash正式开始</li>
+<li>在rehash期间，每次对字典的增删查改，程序都会顺带将<code>ht[0]</code>哈希表在<code>rehashidx</code>索引上的所有键值对rehash到<code>ht[1]</code>，当rehash工作完成后，<code>rehashidx</code>增加1</li>
+<li>随着字典操作不断执行，最终某个时间上，ht[0]的所有键值对都会被rehash至<code>ht[1]</code>,<code>rehashidx</code>设为-1，代表rehash完成。</li>
+<li>rehash过程中，字典会同时使用两个哈希表，如<code>ht[0]</code>没找到，会继续去<code>ht[1]</code>找。而添加一律会被保存在<code>ht[1]</code>。</li>
+</ol>
+<p>举例: <code>set msg HelloWorld</code>这个命令执行以后，redis会在<code>dict-&gt;ht-&gt;dictht-&gt;table</code>中加入一个<code>dictEntry</code>，entry的位置由<code>dict</code>内置的hash算法(比如MurmurHash2)与大小掩码作与运算得出，这个<code>dictEntry</code>包含了<code>key-value</code>和<code>next</code>属性，key和value是redis的<code>SDS</code>简单动态字符串的抽象类。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>字典被广泛用于实现Redis（远程字典服务）的各种功能，其中包括数据库和哈希键。</li>
+<li>Redis中的字典使用哈希表作为底层实现，每个字典待优两个哈希表，一个平时使用，另一个仅在进行rehash时使用</li>
+<li>Redis目前使用MurmurHash2算法计算键的哈希值</li>
+<li>哈希表使用链地址法来解决冲突，被分配到同一个索引上的多个键值对会连接成一个单向链表</li>
+<li>在对哈希表进行扩展或收缩操作时，程序需要将现有哈希表包含的所有键值对rehash到新哈希表里面，并且这个rehash过程不是一次性完完成的，而是伴随着每一次增删改查渐进式完成的</li>
+</ul>
+
+      
     </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Redis/" rel="tag"># Redis</a>
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/字典/" rel="tag"># 字典</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/01/31/Redis数据结构与对象(2)——链表/" rel="next" title="Redis数据结构与对象二">
+                <i class="fa fa-chevron-left"></i> Redis数据结构与对象二
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/01/31/Redis数据结构与对象(4)——跳跃表/" rel="prev" title="Redis数据结构与对象(4)——跳跃表">
+                Redis数据结构与对象(4)——跳跃表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -741,6 +946,10 @@
   
 
   
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
 
   
 
@@ -755,6 +964,23 @@
     <script id="dsq-count-scr" src="https://luodd.disqus.com/count.js" async></script>
   
 
+  
+    <script>
+      var disqus_config = function () {
+        this.page.url = "https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(3)——字典/";
+        this.page.identifier = "2019/01/31/Redis数据结构与对象(3)——字典/";
+        this.page.title = 'Redis数据结构与对象(3)——字典';
+        };
+      function loadComments () {
+        var d = document, s = d.createElement('script');
+        s.src = 'https://luodd.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      }
+      
+        loadComments();
+      
+    </script>
   
 
 
