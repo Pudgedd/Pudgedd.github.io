@@ -114,7 +114,7 @@
 <meta property="og:site_name" content="D&#39;blog">
 <meta property="og:description" content="1.5 整数集合整数集合: (intset)是集合键（set）的底层实现之一，当一个集合只包含整数值元素（浮点数会让set的object encoding 变成hashtable），并且这个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-01-31T15:30:03.536Z">
+<meta property="og:updated_time" content="2019-02-01T01:58:37.151Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Redis数据结构与对象(5)——整数集合">
 <meta name="twitter:description" content="1.5 整数集合整数集合: (intset)是集合键（set）的底层实现之一，当一个集合只包含整数值元素（浮点数会让set的object encoding 变成hashtable），并且这个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现。">
@@ -426,12 +426,24 @@
                 
               
 
-              <time title="创建时间：2019-01-31 23:28:44 / 修改时间：23:30:03" itemprop="dateCreated datePublished" datetime="2019-01-31T23:28:44+08:00">2019-01-31</time>
+              <time title="创建时间：2019-01-31 23:28:44" itemprop="dateCreated datePublished" datetime="2019-01-31T23:28:44+08:00">2019-01-31</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-01 09:58:37" itemprop="dateModified" datetime="2019-02-01T09:58:37+08:00">2019-02-01</time>
               
             
           </span>
@@ -494,7 +506,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">2.2k</span>
+                <span title="本文字数">1.9k</span>
               
 
               
@@ -537,17 +549,6 @@ redis&gt; SADD numbers 1.1
 &quot;1&quot;
 redis&gt; OBJECT ENCODING numbers
 &quot;hashtable&quot;
-</code></pre><p>Redis使用跳跃表作为有序集合键(zset)的底层实现之一，如果一个有序集合包含的<strong>元素数量较多</strong>，又或者有序集合中的元素成员(member)是比<strong>较长的字符串</strong>时，Redis就会使用跳跃表来作为有序集合键的底层实现。</p>
-<p>例如<br>: fruit-price是一个有序集合键，这个有序集合以水果名为成员，水果价钱为分值，保存了130款水果的价钱</p>
-<pre><code>redis&gt; ZRANGE fruit-price 0 2 WITHSCORES
-1)&quot;banana&quot;
-2)&quot;5&quot;
-3)&quot;cherry&quot;
-4)&quot;6.5&quot;
-5)&quot;apple&quot;
-6)&quot;8&quot;
-redis&gt; ZCARD fruit-price
-(integer) 130
 </code></pre><h3 id="整数集合的实现"><a href="#整数集合的实现" class="headerlink" title="整数集合的实现"></a>整数集合的实现</h3><p>整数集合是Redis用于保存整数值的集合抽象数据结构，可以保存类型为<code>int16_t</code>、<code>int32_t</code>、<code>int64_t</code>的整数值，并且保证集合中不会出现重复元素。</p>
 <p>整数集合<br>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> encoding; <span class="comment">//编码方式</span></span><br><span class="line">    <span class="keyword">uint32_t</span> length; <span class="comment">//集合包含的元素数量</span></span><br><span class="line">    <span class="keyword">int8_t</span> contents[]; <span class="comment">//保存元素的数组</span></span><br><span class="line">&#125; intset;</span><br></pre></td></tr></table></figure></p>
 <p>contents数组是整数集合的底层实现：整数集合的每个元素都是<code>contents</code>数组的一个数组项（item），各个项在数组中按值的大小从小到大有序地排列，并且数组中不包含任何重复项。<br>虽然intset将contents属性声明为int8_t类型数组，但实际上<code>contents</code>数组并并不保存任何<code>int8_t</code>类型的值，contents数组的真正类型取决于<code>encoding</code>属性的值，即如果<code>encoding</code>属性的值为<code>INTSET_ENC_INT16</code>，那么<code>contents</code>就是一个<code>int16_t</code>类型的数组，数组里每个元素占16位。</p>
