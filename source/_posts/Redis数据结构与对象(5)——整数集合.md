@@ -21,22 +21,6 @@ tags:
     redis> OBJECT ENCODING numbers
     "hashtable"
 
-
-Redis使用跳跃表作为有序集合键(zset)的底层实现之一，如果一个有序集合包含的**元素数量较多**，又或者有序集合中的元素成员(member)是比**较长的字符串**时，Redis就会使用跳跃表来作为有序集合键的底层实现。
-
-例如
-: fruit-price是一个有序集合键，这个有序集合以水果名为成员，水果价钱为分值，保存了130款水果的价钱
-
-    redis> ZRANGE fruit-price 0 2 WITHSCORES
-    1)"banana"
-    2)"5"
-    3)"cherry"
-    4)"6.5"
-    5)"apple"
-    6)"8"
-    redis> ZCARD fruit-price
-    (integer) 130
-
 ### 整数集合的实现
 整数集合是Redis用于保存整数值的集合抽象数据结构，可以保存类型为`int16_t`、`int32_t`、`int64_t`的整数值，并且保证集合中不会出现重复元素。
 
