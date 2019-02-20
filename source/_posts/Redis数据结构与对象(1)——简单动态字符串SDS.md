@@ -8,7 +8,7 @@ tags:
     - SDS
 ---
 
-## 1 简单动态字符串-SDS
+## 简单动态字符串-SDS
 Redis是由C语言编写的，但Redis没有直接使用C语言传统的字符串表示，而是自己构建了一种叫做简单动态字符串（simple dynamic string, SDS）的抽象类型，除了用来保存字符串外，SDS还被用作缓冲区，如AOF缓冲区。
 <!--more-->
 当你在redis客户端执行命令：

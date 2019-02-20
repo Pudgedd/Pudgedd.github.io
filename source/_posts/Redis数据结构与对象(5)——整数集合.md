@@ -7,7 +7,7 @@ tags:
     - intset
 ---
 
-## 1.5 整数集合
+## 整数集合
 整数集合
 : (intset)是**集合键（set）**的底层实现之一，当一个集合只包含整数值元素（浮点数会让set的object encoding 变成hashtable），并且这个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现。
 <!-- more -->
