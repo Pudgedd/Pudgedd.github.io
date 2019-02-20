@@ -106,27 +106,25 @@
 
 
 
-  <meta name="description" content="网络层结构网络结构有两种主流的分层方式：OSI七层模型和TCP/IP四层模型。 OSI是指Open System Interconnect，意为开放式系统互联。 TCP/IP是指传输控制协议/网间协议，是目前世界上应用最广的协议">
+  <meta name="description" content="HTTP和HTTPS属于计算机网络范畴，但作为开发人员，不管是后台开发或是前台开发，都很有必要掌握它们。">
 <meta name="keywords" content="HTTP,HTTPS,TCP,RSA加密,DH加密">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTP和HTTPS">
 <meta property="og:url" content="https://pudgedd.github.io/2019/02/20/HTTP和HTTPS/index.html">
 <meta property="og:site_name" content="D&#39;blog">
-<meta property="og:description" content="网络层结构网络结构有两种主流的分层方式：OSI七层模型和TCP/IP四层模型。 OSI是指Open System Interconnect，意为开放式系统互联。 TCP/IP是指传输控制协议/网间协议，是目前世界上应用最广的协议">
+<meta property="og:description" content="HTTP和HTTPS属于计算机网络范畴，但作为开发人员，不管是后台开发或是前台开发，都很有必要掌握它们。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz_png/MOu2ZNAwZwOuyliaNZdicviaozMPibFuhZX3w4kfDtmMnxnntswJknnaUoQEZ3Jjm8xMajlQ8TbrRf0AXKOphonXmw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0ltxgcobMVZLZT7IuT4nOPcpxJia2Gg792yibgVQbCvZgDL4rwydgxBQg/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0SCz8XejSMELLnSj5yCMF2FyiczraAfT7EorCLbAfDV3BOOkvp9Gdo0g/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0MCKmJ1uDmdFG7eGptPZZHia8Ss5Hbkmun57aAVXiaNQiamaRx2EF9EmSQ/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0m8aeEohziaZZiaYkBXX7PKkzQ7a7mLBu9TuCuBScpGRgU2b1CfF5I61g/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0UqicMJScksZC13hFEicMqCPpP8ae1eghXLOpLtTIWaDNwTdjrnCJN87A/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0YAGMl6aFw6fSpuvpSk3HSfiaVSb6Via2ZkMYGsF6zzicEbL1pSFpL2l5A/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:image" content="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0pHzkVqcaiaPFAqF3BcvLRMxicU6FFwfX61cNBnuh1xfxRq8LUicRKgFdQ/640?wx_fmt=other&wxfrom=5&wx_lazy=1&wx_co=1">
-<meta property="og:updated_time" content="2019-02-20T06:54:06.870Z">
+<meta property="og:image" content="https://www.techalyst.com/content/uploads/editor-photos/blog/1ecaab6c899ab15bc9aabf9533060047d17ddbf3.png">
+<meta property="og:image" content="http://image.lkd-ykr.top/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B.jpeg">
+<meta property="og:image" content="http://image.lkd-ykr.top/tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg">
+<meta property="og:image" content="http://image.lkd-ykr.top/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg">
+<meta property="og:image" content="http://image.lkd-ykr.top/tcp%E6%8A%A5%E6%96%87%E9%A6%96%E9%83%A8.jpeg">
+<meta property="og:image" content="https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwj55MXP4MngAhUL5oMKHbE6BZkQjRx6BAgBEAU&url=%2Furl%3Fsa%3Di%26source%3Dimages%26cd%3D%26ved%3D%26url%3Dhttp%253A%252F%252Fwww.ruanyifeng.com%252Fblog%252F2014%252F09%252Fillustration-ssl.html%26psig%3DAOvVaw33EPMiWfIQcIHROr2xlzUq%26ust%3D1550732941970451&psig=AOvVaw33EPMiWfIQcIHROr2xlzUq&ust=1550732941970451">
+<meta property="og:updated_time" content="2019-02-20T08:13:16.292Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP和HTTPS">
-<meta name="twitter:description" content="网络层结构网络结构有两种主流的分层方式：OSI七层模型和TCP/IP四层模型。 OSI是指Open System Interconnect，意为开放式系统互联。 TCP/IP是指传输控制协议/网间协议，是目前世界上应用最广的协议">
-<meta name="twitter:image" content="https://mmbiz.qpic.cn/mmbiz_png/MOu2ZNAwZwOuyliaNZdicviaozMPibFuhZX3w4kfDtmMnxnntswJknnaUoQEZ3Jjm8xMajlQ8TbrRf0AXKOphonXmw/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1">
+<meta name="twitter:description" content="HTTP和HTTPS属于计算机网络范畴，但作为开发人员，不管是后台开发或是前台开发，都很有必要掌握它们。">
+<meta name="twitter:image" content="https://www.techalyst.com/content/uploads/editor-photos/blog/1ecaab6c899ab15bc9aabf9533060047d17ddbf3.png">
 
 
 
@@ -435,7 +433,7 @@
                 
               
 
-              <time title="创建时间：2019-02-20 14:02:19 / 修改时间：14:54:06" itemprop="dateCreated datePublished" datetime="2019-02-20T14:02:19+08:00">2019-02-20</time>
+              <time title="创建时间：2019-02-20 14:02:19 / 修改时间：16:13:16" itemprop="dateCreated datePublished" datetime="2019-02-20T14:02:19+08:00">2019-02-20</time>
             
 
             
@@ -537,10 +535,11 @@
       
 
       
-        <h2 id="网络层结构"><a href="#网络层结构" class="headerlink" title="网络层结构"></a>网络层结构</h2><p>网络结构有两种主流的分层方式：<strong>OSI七层模型和TCP/IP四层模型。</strong></p>
+        <p><img src="https://www.techalyst.com/content/uploads/editor-photos/blog/1ecaab6c899ab15bc9aabf9533060047d17ddbf3.png" class="full-image"><br>HTTP和HTTPS属于计算机网络范畴，但作为开发人员，不管是后台开发或是前台开发，都很有必要掌握它们。<br><a id="more"></a></p>
+<h2 id="网络层结构"><a href="#网络层结构" class="headerlink" title="网络层结构"></a>网络层结构</h2><p>网络结构有两种主流的分层方式：<strong>OSI七层模型和TCP/IP四层模型。</strong></p>
 <p>OSI是指Open System Interconnect，意为开放式系统互联。</p>
-<p>TCP/IP是指传输控制协议/网间协议，是目前世界上应用最广的协议<br><a id="more"></a></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/MOu2ZNAwZwOuyliaNZdicviaozMPibFuhZX3w4kfDtmMnxnntswJknnaUoQEZ3Jjm8xMajlQ8TbrRf0AXKOphonXmw/640?wx_fmt=png&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="OSI七层协议"></p>
+<p>TCP/IP是指传输控制协议/网间协议，是目前世界上应用最广的协议</p>
+<p><img src="http://image.lkd-ykr.top/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B.jpeg" alt="OSI七层协议"></p>
 <h3 id="两种模型区别"><a href="#两种模型区别" class="headerlink" title="两种模型区别"></a>两种模型区别</h3><ol>
 <li>OSI采用七层模型，TCP/IP是四层模型</li>
 <li>TCP/IP网络接口层没有真正的定义，只是概念性的描述。OSI把它分为2层，每一层功能详尽。</li>
@@ -583,7 +582,7 @@
 <li><code>Content-Length</code>：声明数据的长度，请求和回应头部都可以使用该字段。</li>
 </ul>
 <h2 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h2><p>HTTP和HTTPS协议请求时都会通过<strong>TCP三次握手建立TCP连接</strong>。那么，三次握手是指什么呢？</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0ltxgcobMVZLZT7IuT4nOPcpxJia2Gg792yibgVQbCvZgDL4rwydgxBQg/640?wx_fmt=other&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="TCP三次握手"></p>
+<p><img src="http://image.lkd-ykr.top/tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg" alt="TCP三次握手"></p>
 <p><strong>那么，为什么一定要三次握手呢，一次可以吗？两次可以吗？</strong></p>
 <p>带着这些问题，我们来分析一下为什么必须是三次握手。</p>
 <ol>
@@ -593,7 +592,7 @@
 </ol>
 <p>通过三次握手，A和B都能确认自己和对方的收发信能力，相当于建立了互相的信任，就可以开始通信了。</p>
 <p>下面，我们介绍一下三次握手具体发送的内容，用一张图描述如下：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0SCz8XejSMELLnSj5yCMF2FyiczraAfT7EorCLbAfDV3BOOkvp9Gdo0g/640?wx_fmt=other&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="三次握手"></p>
+<p><img src="http://image.lkd-ykr.top/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg" alt="三次握手"></p>
 <p>首先，介绍一下几个概念：</p>
 <ul>
 <li><code>ACK</code>：响应标识，1表示响应，连接建立成功之后，所有报文段ACK的值都为1</li>
@@ -616,7 +615,7 @@
 <li><strong>第四次挥手</strong>：主机1收到主机2的FIN报文段，想主机2回应ACK报文段，然后主机1进入TIME_WAIT状态；主机2收到主机1的ACK报文段后，关闭连接。此时主机1等待主机2一段时间后，没有收到回复，证明主机2已经正常关闭，主机1页关闭连接。</li>
 </ol>
 <p>下面是<strong>TCP报文段首部</strong>格式图，对于理解TCP协议很重要：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0MCKmJ1uDmdFG7eGptPZZHia8Ss5Hbkmun57aAVXiaNQiamaRx2EF9EmSQ/640?wx_fmt=other&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="TCP报文段首部"></p>
+<p><img src="http://image.lkd-ykr.top/tcp%E6%8A%A5%E6%96%87%E9%A6%96%E9%83%A8.jpeg" alt="TCP报文段首部"></p>
 <h2 id="HTTPS协议-SSL协议"><a href="#HTTPS协议-SSL协议" class="headerlink" title="HTTPS协议/SSL协议"></a>HTTPS协议/SSL协议</h2><p>HTTPS协议是以安全为目标的HTTP通道，简单来说就是HTTP的安全版。主要是<strong>在HTTP下加入SSL层（现在主流的是SLL/TLS）</strong>，SSL是HTTPS协议的安全基础。HTTPS默认端口号为443。</p>
 <h3 id="HTTP存在的风险"><a href="#HTTP存在的风险" class="headerlink" title="HTTP存在的风险"></a>HTTP存在的风险</h3><ol>
 <li><strong>窃听风险</strong>：HTTP采用明文传输数据，第三方可以获知通信内容</li>
@@ -640,7 +639,7 @@
 <h3 id="SSL原理及运行过程"><a href="#SSL原理及运行过程" class="headerlink" title="SSL原理及运行过程"></a>SSL原理及运行过程</h3><p>SSL/TLS协议基本思路是采用<strong>公钥加密法</strong>（最有名的是<strong>RSA加密算法</strong>）。大概流程是，<strong>客户端向服务器索要公钥，然后用公钥加密信息，服务器收到密文，用自己的私钥解密</strong>。</p>
 <p>为了防止公钥被篡改，把公钥放在数字证书中，证书可信则公钥可信。公钥加密计算量很大，为了提高效率，服务端和客户端都生成对话秘钥，用它加密信息，而对话秘钥是对称加密，速度非常快。而公钥用来机密对话秘钥。</p>
 <p>下面用一张图表示<strong>SSL加密传输过程</strong>：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0m8aeEohziaZZiaYkBXX7PKkzQ7a7mLBu9TuCuBScpGRgU2b1CfF5I61g/640?wx_fmt=other&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="SSL加密传输过程"></p>
+<p><img src="https://www.google.com/url?sa=i&amp;source=images&amp;cd=&amp;cad=rja&amp;uact=8&amp;ved=2ahUKEwj55MXP4MngAhUL5oMKHbE6BZkQjRx6BAgBEAU&amp;url=%2Furl%3Fsa%3Di%26source%3Dimages%26cd%3D%26ved%3D%26url%3Dhttp%253A%252F%252Fwww.ruanyifeng.com%252Fblog%252F2014%252F09%252Fillustration-ssl.html%26psig%3DAOvVaw33EPMiWfIQcIHROr2xlzUq%26ust%3D1550732941970451&amp;psig=AOvVaw33EPMiWfIQcIHROr2xlzUq&amp;ust=1550732941970451" alt="SSL加密传输过程"></p>
 <p>详细介绍一下图中过程：</p>
 <p>1、客户端给出协议版本号、一个客户端随机数A（Client random）以及客户端支持的加密方式<br>2、服务端确认双方使用的加密方式，并给出数字证书、一个服务器生成的随机数B（Server random）<br>3、客户端确认数字证书有效，生成一个新的随机数C（Pre-master-secret），使用证书中的公钥对C加密，发送给服务端<br>4、服务端使用自己的私钥解密出C<br>5、客户端和服务器根据约定的加密方法，使用三个随机数ABC，生成对话秘钥，之后的通信都用这个对话秘钥进行加密。</p>
 <h3 id="SSL证书"><a href="#SSL证书" class="headerlink" title="SSL证书"></a>SSL证书</h3><p>上面提到了，HTTPS协议中需要使用到SSL证书。</p>
@@ -650,10 +649,6 @@
 <li><strong>公司认证（OV=Organization Validation）</strong>：确认域名所有人是哪家公司，证书里面包含公司的信息</li>
 <li><strong>扩展认证（EV=Extended Validation）</strong>：最高级别认证，浏览器地址栏会显示公司名称。</li>
 </ul>
-<p>EV证书浏览器地址栏样式：</p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0UqicMJScksZC13hFEicMqCPpP8ae1eghXLOpLtTIWaDNwTdjrnCJN87A/640?wx_fmt=other&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="EV证书"></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0YAGMl6aFw6fSpuvpSk3HSfiaVSb6Via2ZkMYGsF6zzicEbL1pSFpL2l5A/640?wx_fmt=other&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="OV证书"></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz/MOu2ZNAwZwOUJVZLxO4pNG4tNiaUFgdK0pHzkVqcaiaPFAqF3BcvLRMxicU6FFwfX61cNBnuh1xfxRq8LUicRKgFdQ/640?wx_fmt=other&amp;wxfrom=5&amp;wx_lazy=1&amp;wx_co=1" alt="DV证书"></p>
 <p>按覆盖范围分类：</p>
 <ul>
 <li>单域名证书：只能用于单域名，foo.com证书不能用不<a href="http://www.foo.com" target="_blank" rel="noopener">www.foo.com</a></li>
