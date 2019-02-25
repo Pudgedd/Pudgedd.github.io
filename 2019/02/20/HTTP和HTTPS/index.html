@@ -115,12 +115,11 @@
 <meta property="og:description" content="HTTP和HTTPS属于计算机网络范畴，但作为开发人员，不管是后台开发或是前台开发，都很有必要掌握它们。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://www.techalyst.com/content/uploads/editor-photos/blog/1ecaab6c899ab15bc9aabf9533060047d17ddbf3.png">
-<meta property="og:image" content="http://image.lkd-ykr.top/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B.jpeg">
-<meta property="og:image" content="http://image.lkd-ykr.top/tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg">
-<meta property="og:image" content="http://image.lkd-ykr.top/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9942787-afa31b861fb0f247.png?imageMogr2/auto-orient/">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/9942787-495afdbac8f2012c.png?imageMogr2/auto-orient/">
 <meta property="og:image" content="http://image.lkd-ykr.top/tcp%E6%8A%A5%E6%96%87%E9%A6%96%E9%83%A8.jpeg">
 <meta property="og:image" content="https://www.google.com/url?sa=i&source=images&cd=&cad=rja&uact=8&ved=2ahUKEwj55MXP4MngAhUL5oMKHbE6BZkQjRx6BAgBEAU&url=%2Furl%3Fsa%3Di%26source%3Dimages%26cd%3D%26ved%3D%26url%3Dhttp%253A%252F%252Fwww.ruanyifeng.com%252Fblog%252F2014%252F09%252Fillustration-ssl.html%26psig%3DAOvVaw33EPMiWfIQcIHROr2xlzUq%26ust%3D1550732941970451&psig=AOvVaw33EPMiWfIQcIHROr2xlzUq&ust=1550732941970451">
-<meta property="og:updated_time" content="2019-02-20T08:13:16.292Z">
+<meta property="og:updated_time" content="2019-02-25T06:37:04.261Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTP和HTTPS">
 <meta name="twitter:description" content="HTTP和HTTPS属于计算机网络范畴，但作为开发人员，不管是后台开发或是前台开发，都很有必要掌握它们。">
@@ -433,12 +432,24 @@
                 
               
 
-              <time title="创建时间：2019-02-20 14:02:19 / 修改时间：16:13:16" itemprop="dateCreated datePublished" datetime="2019-02-20T14:02:19+08:00">2019-02-20</time>
+              <time title="创建时间：2019-02-20 14:02:19" itemprop="dateCreated datePublished" datetime="2019-02-20T14:02:19+08:00">2019-02-20</time>
             
 
             
               
 
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2019-02-25 14:37:04" itemprop="dateModified" datetime="2019-02-25T14:37:04+08:00">2019-02-25</time>
               
             
           </span>
@@ -501,7 +512,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">6.5k</span>
+                <span title="本文字数">6.8k</span>
               
 
               
@@ -539,7 +550,68 @@
 <h2 id="网络层结构"><a href="#网络层结构" class="headerlink" title="网络层结构"></a>网络层结构</h2><p>网络结构有两种主流的分层方式：<strong>OSI七层模型和TCP/IP四层模型。</strong></p>
 <p>OSI是指Open System Interconnect，意为开放式系统互联。</p>
 <p>TCP/IP是指传输控制协议/网间协议，是目前世界上应用最广的协议</p>
-<p><img src="http://image.lkd-ykr.top/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B.jpeg" alt="OSI七层协议"></p>
+<table>
+<thead>
+<tr>
+<th>OSI层</th>
+<th>对应TCP/IP层</th>
+<th>OSI各层功能</th>
+<th>网络协议</th>
+<th>设备</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>应用层</td>
+<td>应用层</td>
+<td>应用程序（电子邮件，文件服务）,用户接口</td>
+<td>HTTP，FTP，TFTP，NFS</td>
+<td>网关</td>
+</tr>
+<tr>
+<td>表示层</td>
+<td>应用层</td>
+<td>数据的表示，压缩和加密（数据格式化，代码转换，数据加密</td>
+<td>TELNET，SNMP</td>
+<td>网关</td>
+</tr>
+<tr>
+<td>会话层</td>
+<td>应用层</td>
+<td>建立、管理和终止会话</td>
+<td>SMTP，DNS</td>
+<td>网关</td>
+</tr>
+<tr>
+<td>传输层</td>
+<td>传输层</td>
+<td>OSI各层功能</td>
+<td>TCP，UDP</td>
+<td>网关</td>
+</tr>
+<tr>
+<td>网络层</td>
+<td>网际互联层</td>
+<td>OSI各层功能</td>
+<td>IP，ICMP，ARP，RARP，UUCP</td>
+<td>路由器</td>
+</tr>
+<tr>
+<td>链路层</td>
+<td>网络接口层</td>
+<td>OSI各层功能</td>
+<td>FDDI，SLIP，PPP，PDN</td>
+<td>交换机</td>
+</tr>
+<tr>
+<td>物理层</td>
+<td>网络接口层</td>
+<td>OSI各层功能</td>
+<td>ISO2110，IEEE802，IEEE802.2</td>
+<td>集线器，中继器</td>
+</tr>
+</tbody>
+</table>
 <h3 id="两种模型区别"><a href="#两种模型区别" class="headerlink" title="两种模型区别"></a>两种模型区别</h3><ol>
 <li>OSI采用七层模型，TCP/IP是四层模型</li>
 <li>TCP/IP网络接口层没有真正的定义，只是概念性的描述。OSI把它分为2层，每一层功能详尽。</li>
@@ -582,7 +654,7 @@
 <li><code>Content-Length</code>：声明数据的长度，请求和回应头部都可以使用该字段。</li>
 </ul>
 <h2 id="TCP三次握手"><a href="#TCP三次握手" class="headerlink" title="TCP三次握手"></a>TCP三次握手</h2><p>HTTP和HTTPS协议请求时都会通过<strong>TCP三次握手建立TCP连接</strong>。那么，三次握手是指什么呢？</p>
-<p><img src="http://image.lkd-ykr.top/tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg" alt="TCP三次握手"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9942787-afa31b861fb0f247.png?imageMogr2/auto-orient/" alt="TCP三次握手"></p>
 <p><strong>那么，为什么一定要三次握手呢，一次可以吗？两次可以吗？</strong></p>
 <p>带着这些问题，我们来分析一下为什么必须是三次握手。</p>
 <ol>
@@ -592,7 +664,7 @@
 </ol>
 <p>通过三次握手，A和B都能确认自己和对方的收发信能力，相当于建立了互相的信任，就可以开始通信了。</p>
 <p>下面，我们介绍一下三次握手具体发送的内容，用一张图描述如下：</p>
-<p><img src="http://image.lkd-ykr.top/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg" alt="三次握手"></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/9942787-495afdbac8f2012c.png?imageMogr2/auto-orient/" alt="三次握手"></p>
 <p>首先，介绍一下几个概念：</p>
 <ul>
 <li><code>ACK</code>：响应标识，1表示响应，连接建立成功之后，所有报文段ACK的值都为1</li>
@@ -966,7 +1038,7 @@
       <i class="fa fa-area-chart"></i>
     </span>
     
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">22k</span>
   
 
   
@@ -975,7 +1047,7 @@
       <i class="fa fa-coffee"></i>
     </span>
     
-    <span title="站点阅读时长">19 分钟</span>
+    <span title="站点阅读时长">20 分钟</span>
   
 </div>
 
