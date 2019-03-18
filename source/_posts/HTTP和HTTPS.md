@@ -21,7 +21,15 @@ OSI是指Open System Interconnect，意为开放式系统互联。
 
 TCP/IP是指传输控制协议/网间协议，是目前世界上应用最广的协议
 
-![OSI七层协议](http://image.lkd-ykr.top/OSI%E4%B8%83%E5%B1%82%E6%A8%A1%E5%9E%8B.jpeg)
+| OSI层  | 对应TCP/IP层 | OSI各层功能                                            | 网络协议                    | 设备           |
+| ------ | ------------ | ------------------------------------------------------ | --------------------------- | -------------- |
+| 应用层 | 应用层       | 应用程序（电子邮件，文件服务）,用户接口                | HTTP，FTP，TFTP，NFS        | 网关           |
+| 表示层 | 应用层       | 数据的表示，压缩和加密（数据格式化，代码转换，数据加密 | TELNET，SNMP                | 网关           |
+| 会话层 | 应用层       | 建立、管理和终止会话                                   | SMTP，DNS                   | 网关           |
+| 传输层 | 传输层       | OSI各层功能                                            | TCP，UDP                    | 网关           |
+| 网络层 | 网际互联层   | OSI各层功能                                            | IP，ICMP，ARP，RARP，UUCP   | 路由器         |
+| 链路层 | 网络接口层   | OSI各层功能                                            | FDDI，SLIP，PPP，PDN        | 交换机         |
+| 物理层 | 网络接口层   | OSI各层功能                                            | ISO2110，IEEE802，IEEE802.2 | 集线器，中继器 |
 
 ### 两种模型区别
 1. OSI采用七层模型，TCP/IP是四层模型
@@ -88,7 +96,7 @@ Proxy-Connection: Keep-alive
 ## TCP三次握手
 HTTP和HTTPS协议请求时都会通过**TCP三次握手建立TCP连接**。那么，三次握手是指什么呢？
 
-![TCP三次握手](http://image.lkd-ykr.top/tcp%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg)
+![TCP三次握手](https://upload-images.jianshu.io/upload_images/9942787-afa31b861fb0f247.png?imageMogr2/auto-orient/)
 
 **那么，为什么一定要三次握手呢，一次可以吗？两次可以吗？**
 
@@ -102,7 +110,7 @@ HTTP和HTTPS协议请求时都会通过**TCP三次握手建立TCP连接**。那�
 
 下面，我们介绍一下三次握手具体发送的内容，用一张图描述如下：
 
-![三次握手](http://image.lkd-ykr.top/%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B.jpeg)
+![三次握手](https://upload-images.jianshu.io/upload_images/9942787-495afdbac8f2012c.png?imageMogr2/auto-orient/)
 
 首先，介绍一下几个概念：
 
@@ -127,7 +135,7 @@ HTTP和HTTPS协议请求时都会通过**TCP三次握手建立TCP连接**。那�
 
 下面是**TCP报文段首部**格式图，对于理解TCP协议很重要：
 
-![TCP报文段首部](http://image.lkd-ykr.top/tcp%E6%8A%A5%E6%96%87%E9%A6%96%E9%83%A8.jpeg)
+![TCP报文段首部](https://s1.ax1x.com/2018/03/02/9rzlJf.png)
 
 ## HTTPS协议/SSL协议
 
