@@ -106,25 +106,25 @@
 
 
 
-  <meta name="description" content="整数集合整数集合: (intset)是集合键（set）的底层实现之一，当一个集合只包含整数值元素（浮点数会让set的object encoding 变成hashtable），并且这个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现。">
-<meta name="keywords" content="Redis,数据结构,intset">
+  <meta name="description" content="quicklistRedis3.2分支以后引入了一种新的内部数据结构——quicklist，quicklist经常被用作列表键的实现之一，4.0版本以后取消了列表键对象的ziplist和linkedlist编码，统一使用quicklist编码。">
+<meta name="keywords" content="Redis,数据结构,quicklist">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Redis数据结构与对象(5)——整数集合">
-<meta property="og:url" content="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(5)——整数集合/index.html">
+<meta property="og:title" content="Redis数据结构与对象7——quicklist">
+<meta property="og:url" content="https://pudgedd.github.io/2019/03/18/Redis数据结构与对象7——quicklist/index.html">
 <meta property="og:site_name" content="D&#39;blog">
-<meta property="og:description" content="整数集合整数集合: (intset)是集合键（set）的底层实现之一，当一个集合只包含整数值元素（浮点数会让set的object encoding 变成hashtable），并且这个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现。">
+<meta property="og:description" content="quicklistRedis3.2分支以后引入了一种新的内部数据结构——quicklist，quicklist经常被用作列表键的实现之一，4.0版本以后取消了列表键对象的ziplist和linkedlist编码，统一使用quicklist编码。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-02-12T08:43:27.995Z">
+<meta property="og:updated_time" content="2019-03-19T03:02:13.191Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Redis数据结构与对象(5)——整数集合">
-<meta name="twitter:description" content="整数集合整数集合: (intset)是集合键（set）的底层实现之一，当一个集合只包含整数值元素（浮点数会让set的object encoding 变成hashtable），并且这个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现。">
+<meta name="twitter:title" content="Redis数据结构与对象7——quicklist">
+<meta name="twitter:description" content="quicklistRedis3.2分支以后引入了一种新的内部数据结构——quicklist，quicklist经常被用作列表键的实现之一，4.0版本以后取消了列表键对象的ziplist和linkedlist编码，统一使用quicklist编码。">
 
 
 
 
 
 
-  <link rel="canonical" href="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(5)——整数集合/">
+  <link rel="canonical" href="https://pudgedd.github.io/2019/03/18/Redis数据结构与对象7——quicklist/">
 
 
 
@@ -134,7 +134,7 @@
   };
 </script>
 
-  <title>Redis数据结构与对象(5)——整数集合 | D'blog</title>
+  <title>Redis数据结构与对象7——quicklist | D'blog</title>
   
 
 
@@ -383,7 +383,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(5)——整数集合/">
+    <link itemprop="mainEntityOfPage" href="https://pudgedd.github.io/2019/03/18/Redis数据结构与对象7——quicklist/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Kendall Luo">
@@ -400,7 +400,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Redis数据结构与对象(5)——整数集合
+          <h1 class="post-title" itemprop="name headline">Redis数据结构与对象7——quicklist
 
               
             
@@ -426,7 +426,7 @@
                 
               
 
-              <time title="创建时间：2019-01-31 23:28:44" itemprop="dateCreated datePublished" datetime="2019-01-31T23:28:44+08:00">2019-01-31</time>
+              <time title="创建时间：2019-03-18 17:08:02" itemprop="dateCreated datePublished" datetime="2019-03-18T17:08:02+08:00">2019-03-18</time>
             
 
             
@@ -443,7 +443,7 @@
                 
                   <span class="post-meta-item-text">更新于</span>
                 
-                <time title="修改时间：2019-02-12 16:43:27" itemprop="dateModified" datetime="2019-02-12T16:43:27+08:00">2019-02-12</time>
+                <time title="修改时间：2019-03-19 11:02:13" itemprop="dateModified" datetime="2019-03-19T11:02:13+08:00">2019-03-19</time>
               
             
           </span>
@@ -475,9 +475,9 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2019/01/31/Redis数据结构与对象(5)——整数集合/#comments" itemprop="discussionUrl">
+                <a href="/2019/03/18/Redis数据结构与对象7——quicklist/#comments" itemprop="discussionUrl">
                 
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/01/31/Redis数据结构与对象(5)——整数集合/" itemprop="commentCount"></span>
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2019/03/18/Redis数据结构与对象7——quicklist/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -506,7 +506,7 @@
                 
                   <span class="post-meta-item-text">本文字数：</span>
                 
-                <span title="本文字数">1.9k</span>
+                <span title="本文字数">4.5k</span>
               
 
               
@@ -520,7 +520,7 @@
                 
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
-                <span title="阅读时长">2 分钟</span>
+                <span title="阅读时长">4 分钟</span>
               
             </div>
           
@@ -540,37 +540,84 @@
       
 
       
-        <h2 id="整数集合"><a href="#整数集合" class="headerlink" title="整数集合"></a>整数集合</h2><p>整数集合<br>: (intset)是<strong>集合键（set）</strong>的底层实现之一，当一个集合只包含整数值元素（浮点数会让set的object encoding 变成hashtable），并且这个集合的元素数量不多时，Redis就会使用整数集合作为集合键的底层实现。<br><a id="more"></a></p>
-<pre><code>redis&gt; SADD numbers 1 3 4 5
-&quot;4&quot;
-reids&gt; OBJECT ENCODING numbers
-&quot;intset&quot;
-redis&gt; SADD numbers 1.1
-&quot;1&quot;
-redis&gt; OBJECT ENCODING numbers
-&quot;hashtable&quot;
-</code></pre><h3 id="整数集合的实现"><a href="#整数集合的实现" class="headerlink" title="整数集合的实现"></a>整数集合的实现</h3><p>整数集合是Redis用于保存整数值的集合抽象数据结构，可以保存类型为<code>int16_t</code>、<code>int32_t</code>、<code>int64_t</code>的整数值，并且保证集合中不会出现重复元素。</p>
-<p>整数集合<br>:<br><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">intset</span> &#123;</span></span><br><span class="line">    <span class="keyword">uint32_t</span> encoding; <span class="comment">//编码方式</span></span><br><span class="line">    <span class="keyword">uint32_t</span> length; <span class="comment">//集合包含的元素数量</span></span><br><span class="line">    <span class="keyword">int8_t</span> contents[]; <span class="comment">//保存元素的数组</span></span><br><span class="line">&#125; intset;</span><br></pre></td></tr></table></figure></p>
-<p>contents数组是整数集合的底层实现：整数集合的每个元素都是<code>contents</code>数组的一个数组项（item），各个项在数组中按值的大小从小到大有序地排列，并且数组中不包含任何重复项。<br>虽然intset将contents属性声明为int8_t类型数组，但实际上<code>contents</code>数组并并不保存任何<code>int8_t</code>类型的值，contents数组的真正类型取决于<code>encoding</code>属性的值，即如果<code>encoding</code>属性的值为<code>INTSET_ENC_INT16</code>，那么<code>contents</code>就是一个<code>int16_t</code>类型的数组，数组里每个元素占16位。</p>
-<h4 id="升级"><a href="#升级" class="headerlink" title="升级"></a>升级</h4><p>每当我们要将一个新元素添加到整数集合里面，并且新元素的类型比整数集合现有所有元素的类型都要长时，整数集合需要先进行升级（upgrade），然后才能将新元素添加到整数集合里面。升级并添加分为三步进行：</p>
-<ol>
-<li>根据新元素的类型，扩展整数集合底层数组的空间大小，并为新元素分配空间</li>
-<li>将底层数组现有的所有元素都转换成与新元素相同的类型，并将类型转换后的元素放置到正确的位上，而且在放置元素的过程中，需要继续维持底层数组的有序性质不变</li>
-<li>将新元素添加到底层数组里面</li>
-</ol>
-<p>举个例子：有一个<code>INTSET_ENC_INT16</code>编码的整数集合，集合中有1，2，3这三个<code>int16_t</code>的元素，底层数组的大小为<code>3*16=48</code>位。若把<code>int32_t</code>类型的65535添加到集合中，必须要对整个集合进行升级。首先要分配四个元素的空间，即<code>36*4=128</code>位。接下来把三个元素转换成<code>int32_t</code>类型，并放置到正确位上面，且维持有序性不变。最后将第四个元素加入，将整数集合encoding属性值从<code>INTSET_ENC_INT16</code>改为<code>INTSET_ENC_INT32</code>，并将<code>length</code>属性的值从3改为4。</p>
-<p>因为每次向整数集合添加新元素都可能会引起升级，而每次升级都需要对底层数组中已有的所有元素进行类型转换，所以向整数集合添加新元素的时间复杂度为<code>O(N)</code>。</p>
-<p>升级的好处：</p>
-<ol>
-<li>提升灵活性：因为C是静态类型语言，为了避免类型错误，我们通常不会将两种不同类型的值放在同一个数据结构里面。但是，因为整数集合可以通过自动升级底层数组来适应新元素，所以我们可以随意将<code>int16_t</code>、<code>int32_t</code>、<code>int64_t</code>的整数添加到集合中，而不必担心出现类型错误</li>
-<li>节约内存：当然，要让有一个数组可以同时保存<code>int16_t</code>、<code>int32_t</code>、<code>int64_t</code>的整数最简单的做法就是直接使用<code>int64_t</code>类型的数组作为整数集合的底层实现。不过这样一来会造成内存浪费的情况，而整数集合现在的做法既可以让集合能同时保存三种不同类型的值，又可以确保升级操作只会在有需要的时候进行，这可以尽量节省内存。</li>
-</ol>
-<h3 id="降级"><a href="#降级" class="headerlink" title="降级"></a>降级</h3><p>整数集合不支持降级操作，一旦对数组进行了升级，编码就会一直保持在升级后的状态。</p>
+        <h2 id="quicklist"><a href="#quicklist" class="headerlink" title="quicklist"></a>quicklist</h2><p>Redis3.2分支以后引入了一种新的内部数据结构——<code>quicklist</code>，<code>quicklist</code>经常被用作<strong>列表键</strong>的实现之一，4.0版本以后取消了<strong>列表键对象</strong>的<code>ziplist</code>和<code>linkedlist</code>编码，统一使用<code>quicklist</code>编码。<br><a id="more"></a></p>
+<pre><code>redis&gt; RPUSH lst 1 3 5 10086 &quot;hello&quot; &quot;world&quot;
+&quot;6&quot;
+reids&gt; OBJECT ENCODING lst
+&quot;quicklist&quot;
+</code></pre><h3 id="quicklist的构成"><a href="#quicklist的构成" class="headerlink" title="quicklist的构成"></a>quicklist的构成</h3><p>Redis4.0版本以后用自定义的一种复杂数据结构<code>quicklist</code>取代了<code>ziplsit</code>和<code>linkedlist</code>，它本身是一个<strong>双向无环链表</strong>，它的每一个节点都是一个<code>ziplist</code>，可以看出<code>quicklist</code>其实是将<code>ziplist</code>和<code>linkedlist</code>结合到了一个数据结构中。为什么这么设计呢？</p>
+<ul>
+<li>链表在插入，删除节点的时间复杂度很低；但是内存利用率低，且由于内存不连续容易产生内存碎片</li>
+<li>压缩表内存连续，存储效率高；但是插入和删除的成本太高，需要频繁的进行数据搬移、释放或申请内存（每次数据变动都会引发一次内存的realloc。特别是当<code>ziplist</code>长度很长的时候，一次realloc可能会导致大批量的数据拷贝，进一步降低性能）。</li>
+</ul>
+<p>而<code>quicklist</code>通过将每个压缩表用双向链表的方式连接起来，来寻求一种收益最大化。</p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><p>首先是<code>quicklist</code>的节点<code>quicklistNode</code>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">quicklistNode</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">quicklistNode</span> *<span class="title">prev</span>;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">quicklistNode</span> *<span class="title">next</span>;</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> *zl;  <span class="comment">// ziplist</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> sz;             <span class="comment">// ziplist的内存大小</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> count : <span class="number">16</span>;     <span class="comment">// zpilist中数据项的个数</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> encoding : <span class="number">2</span>;   <span class="comment">// 1为ziplist 2是LZF压缩存储方式</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> container : <span class="number">2</span>;  </span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> recompress : <span class="number">1</span>;   <span class="comment">// 压缩标志, 为1 是压缩</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> attempted_compress : <span class="number">1</span>; <span class="comment">// 节点是否能够被压缩,只用在测试</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> extra : <span class="number">10</span>; <span class="comment">/* more bits to steal for future usage */</span></span><br><span class="line">&#125; quicklistNode;</span><br></pre></td></tr></table></figure>
+<p><code>quicklistNode</code>实际上就是对<code>ziplist</code>的进一步封装，其中包括：</p>
+<ul>
+<li><code>prev</code>: 指向链表前一个节点的指针。</li>
+<li><code>next</code>: 指向链表后一个节点的指针。<br>zl: 数据指针。如果当前节点的数据没有压缩，那么它指向一个<code>ziplist</code>结构；否则，它指向一个<code>quicklistLZF</code>结构。</li>
+<li><code>sz</code>: 表示<code>zl</code>指向的<code>ziplist</code>的总大小（包括<code>zlbytes</code>, <code>zltail</code>, <code>zllen</code>, <code>zlend</code>和各个数据项）。需要注意的是：如果<code>ziplist</code>被压缩了，那么这个<code>sz</code>的值仍然是压缩前的<code>ziplist</code>大小。</li>
+<li><code>count</code>: 表示<code>ziplist</code>里面包含的数据项个数。这个字段只有16bit。稍后我们会一起计算一下这16bit是否够用。</li>
+<li><code>encoding</code>: 表示<code>ziplist</code>是否压缩了（以及用了哪个压缩算法）。目前只有两种取值：2表示被压缩了（而且用的是LZF压缩算法），1表示没有压缩。</li>
+<li><code>container</code>: 是一个预留字段。本来设计是用来表明一个<code>quicklist</code>节点下面是直接存数据，还是使用<code>ziplist</code>存数据，或者用其它的结构来存数据（用作一个数据容器，所以叫<code>container</code>）。但是，在目前的实现中，这个值是一个固定的值2，表示使用<code>ziplist</code>作为数据容器。</li>
+<li><code>recompress</code>: 当我们使用类似<code>lindex</code>这样的命令查看了某一项本来压缩的数据时，需要把数据暂时解压，这时就设置<code>recompress=1</code>做一个标记，等有机会再把数据重新压缩。</li>
+<li><code>attempted_compress</code>: 这个值只对Redis的自动化测试程序有用。我们不用管它。</li>
+<li><code>extra</code>: 其它扩展字段。目前Redis的实现里也没用上。</li>
+</ul>
+<p><code>quicklistLZF</code>结构表示一个被压缩过的<code>ziplist</code>。其中：</p>
+<ul>
+<li><code>sz</code>: 表示压缩后的<code>ziplist</code>大小。</li>
+<li><code>compressed</code>: 是个柔性数组（flexible array member），存放压缩后的<code>ziplist</code>字节数组。</li>
+</ul>
+<p><code>quicklist</code>: </p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">quicklist</span> &#123;</span></span><br><span class="line">    quicklistNode *head;    <span class="comment">// 头结点</span></span><br><span class="line">    quicklistNode *tail;    <span class="comment">// 尾节点</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">long</span> count;    <span class="comment">// 所有数据的数量</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> len;       <span class="comment">// quicklist节点数量</span></span><br><span class="line">    <span class="keyword">int</span> fill : <span class="number">16</span>;          <span class="comment">// 单个ziplist的大小限制</span></span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> compress : <span class="number">16</span>;   <span class="comment">// 压缩深度</span></span><br><span class="line">&#125; quicklist;</span><br></pre></td></tr></table></figure>
+<p>真正表示<code>quicklist</code>的数据结构是同名的<code>quicklist</code>这个struct：</p>
+<ul>
+<li><code>head</code>: 指向头节点（左侧第一个节点）的指针。</li>
+<li><code>tail</code>: 指向尾节点（右侧第一个节点）的指针。</li>
+<li><code>count</code>: 所有<code>ziplist</code>数据项的个数总和。</li>
+<li><code>len</code>: <code>quicklist</code>节点的个数。</li>
+<li><code>fill</code>: 16bit，<code>ziplist</code>大小设置，存放<code>list-max-ziplist-size</code>参数的值。</li>
+<li><code>compress</code>: 16bit，节点压缩深度设置，存放<code>list-compress-depth</code>参数的值。</li>
+</ul>
+<h3 id="quicklistNode的大小"><a href="#quicklistNode的大小" class="headerlink" title="quicklistNode的大小"></a>quicklistNode的大小</h3><p>到底一个<code>quicklistNode</code>节点包含多长的<code>ziplist</code>合适呢？比如，同样是存储12个数据项，既可以是一个<code>quicklist</code>包含3个节点，而每个节点的<code>ziplist</code>又包含4个数据项，也可以是一个<code>quicklist</code>包含6个节点，而每个节点的<code>ziplist</code>又包含2个数据项。</p>
+<p>这又是一个需要找平衡点的难题。我们只从存储效率上分析一下：</p>
+<ul>
+<li>每个<code>quicklist</code>节点上的<code>ziplist</code>越短，则内存碎片越多。内存碎片多了，有可能在内存中产生很多无法被利用的小碎片，从而降低存储效率。这种情况的极端是每个<code>quicklist</code>节点上的<code>ziplist</code>只包含一个数据项，这就蜕化成一个普通的双向链表了。</li>
+<li>每个<code>quicklist</code>节点上的<code>ziplist</code>越长，则为<code>ziplist</code>分配大块连续内存空间的难度就越大。有可能出现内存里有很多小块的空闲空间（它们加起来很多），但却找不到一块足够大的空闲空间分配给<code>ziplist</code>的情况。这同样会降低存储效率。这种情况的极端是整个<code>quicklist</code>只有一个节点，所有的数据项都分配在这仅有的一个节点的<code>ziplist</code>里面。这其实蜕化成一个<code>ziplist</code>了。</li>
+</ul>
+<p>可见，一个<code>quicklist</code>节点上的<code>ziplist</code>要保持一个合理的长度。那到底多长合理呢？这可能取决于具体应用场景。实际上，Redis提供了一个配置参数<code>list-max-ziplist-size</code>，就是为了让使用者可以来根据自己的情况进行调整。</p>
+<pre><code>list-max-ziplist-size -2
+</code></pre><p>我们来详细解释一下这个参数的含义。它可以取正值，也可以取负值。</p>
+<p>当取<strong>正值</strong>的时候，表示<strong>按照数据项个数</strong>来限定每个<code>quicklist</code>节点上的<code>ziplist</code>长度。比如，当这个参数配置成5的时候，表示每个<code>quicklist</code>节点的<code>ziplist</code>最多包含5个数据项。当取<strong>负值</strong>的时候，表示<strong>按照占用字节数</strong>来限定每个<code>quicklist</code>节点上的<code>ziplist</code>长度。这时，它只能取-1到-5这五个值，每个值含义如下：</p>
+<ul>
+<li>-5: 每个<code>quicklist</code>节点上的<code>ziplist</code>大小不能超过64 Kb。（注：1kb =&gt; 1024 bytes）</li>
+<li>-4: 每个<code>quicklist</code>节点上的<code>ziplist</code>大小不能超过32 Kb。</li>
+<li>-3: 每个<code>quicklist</code>节点上的<code>ziplist</code>大小不能超过16 Kb。</li>
+<li>-2: 每个<code>quicklist</code>节点上的<code>ziplist</code>大小不能超过8 Kb。（<strong>-2是Redis给出的默认值</strong>）</li>
+<li>-1: 每个<code>quicklist</code>节点上的<code>ziplist</code>大小不能超过4 Kb。</li>
+<li>为正数时，表示单个节点最大允许的元素个数，最大为32768个</li>
+</ul>
+<p>当列表很长的时候，最容易被访问的很可能是两端的数据，中间的数据被访问的频率比较低（访问起来性能也很低）。如果应用场景符合这个特点，那么list还提供了一个选项，能够把中间的数据节点进行压缩，从而进一步节省内存空间。Redis的配置参数list-compress-depth就是用来完成这个设置的。</p>
+<pre><code>list-compress-depth 0
+</code></pre><p>这个参数表示一个<code>quicklist</code>两端<strong>不被压缩</strong>的节点个数。注：这里的节点个数是指<code>quicklist</code>双向链表的节点个数，而不是指<code>ziplist</code>里面的数据项个数。实际上，一个<code>quicklist</code>节点上的<code>ziplist</code>，如果被压缩，就是整体被压缩的。</p>
+<p>参数<code>list-compress-depth</code>的取值含义如下：</p>
+<ul>
+<li>0: 是个特殊值，表示<strong>都不压缩</strong>。这是Redis的<strong>默认值</strong>。</li>
+<li>1: 表示<code>quicklist</code>两端各有1个节点不压缩，中间的节点压缩。</li>
+<li>2: 表示<code>quicklist</code>两端各有2个节点不压缩，中间的节点压缩。</li>
+<li>3: 表示<code>quicklist</code>两端各有3个节点不压缩，中间的节点压缩。<br>依此类推…</li>
+<li>由于0是个特殊值，很容易看出<code>quicklist</code>的头节点和尾节点总是不被压缩的，以便于在表的两端进行快速存取。</li>
+</ul>
+<p>Redis对于<code>quicklist</code>内部节点的压缩算法，采用的<code>LZF</code>——<strong>一种无损压缩算法</strong>。</p>
 <h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
-<li>整数集合是集合键的底层实现之一</li>
-<li>整数集合的底层实现为数组，这个数组以有序、无重复的方式保存集合元素，在有需要时，程序会根据新添加元素的类型，改变这个数组的类型</li>
-<li>升级操作为整数集合带来了操作上的灵活性，并且尽可能节约了内存</li>
-<li>整数集合只支持升级操作，不支持降级操作</li>
+<li><code>quicklist</code>除了常用的增删改查外还提供了merge、将<code>ziplist</code>转换为<code>quicklist</code>等API</li>
+<li><code>quicklist</code>是Redis3.2分支后在<code>ziplist</code>和<code>linkedlist</code>两种数据结构的基础上融合而成的一个实用的复杂数据结构</li>
+<li><code>quicklist</code>在4.0之后取代了<code>linkedlist</code>和<code>ziplist</code>作为list的基础数据类型</li>
+<li><code>quicklist</code>的大部分API都是直接复用<code>ziplist</code></li>
+<li><code>quicklist</code>的单个节点最大存储默认为8kb</li>
+<li><code>quicklist</code>提供了基于LZF算法的压缩API，通过将不常用的中间节点数据压缩达到节省内存的目的</li>
 </ul>
 
       
@@ -599,7 +646,7 @@ redis&gt; OBJECT ENCODING numbers
           
             <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           
-            <a href="/tags/intset/" rel="tag"># intset</a>
+            <a href="/tags/quicklist/" rel="tag"># quicklist</a>
           
         </div>
       
@@ -612,8 +659,8 @@ redis&gt; OBJECT ENCODING numbers
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/01/31/Redis数据结构与对象(4)——跳跃表/" rel="next" title="Redis数据结构与对象(4)——跳跃表">
-                <i class="fa fa-chevron-left"></i> Redis数据结构与对象(4)——跳跃表
+              <a href="/2019/02/20/HTTP和HTTPS/" rel="next" title="HTTP和HTTPS">
+                <i class="fa fa-chevron-left"></i> HTTP和HTTPS
               </a>
             
           </div>
@@ -622,8 +669,8 @@ redis&gt; OBJECT ENCODING numbers
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/02/12/Redis数据结构与对象(6)——压缩列表/" rel="prev" title="Redis数据结构与对象(6)——压缩列表">
-                Redis数据结构与对象(6)——压缩列表 <i class="fa fa-chevron-right"></i>
+              <a href="/2019/03/19/Redis数据结构与对象8——Redis对象/" rel="prev" title="Redis数据结构与对象8——Redis对象">
+                Redis数据结构与对象8——Redis对象 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -703,7 +750,7 @@ redis&gt; OBJECT ENCODING numbers
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">8</span>
+                    <span class="site-state-item-count">9</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -761,7 +808,9 @@ redis&gt; OBJECT ENCODING numbers
                     
                       
                     
-                    <span class="site-state-item-count">14</span>
+                      
+                    
+                    <span class="site-state-item-count">15</span>
                     <span class="site-state-item-name">标签</span>
                   </a>
                 </div>
@@ -823,7 +872,7 @@ redis&gt; OBJECT ENCODING numbers
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#整数集合"><span class="nav-number">1.</span> <span class="nav-text">整数集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整数集合的实现"><span class="nav-number">1.1.</span> <span class="nav-text">整数集合的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#升级"><span class="nav-number">1.1.1.</span> <span class="nav-text">升级</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#降级"><span class="nav-number">1.2.</span> <span class="nav-text">降级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#quicklist"><span class="nav-number">1.</span> <span class="nav-text">quicklist</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#quicklist的构成"><span class="nav-number">1.1.</span> <span class="nav-text">quicklist的构成</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">定义</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#quicklistNode的大小"><span class="nav-number">1.2.</span> <span class="nav-text">quicklistNode的大小</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.3.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1004,9 +1053,9 @@ redis&gt; OBJECT ENCODING numbers
   
     <script>
       var disqus_config = function () {
-        this.page.url = "https://pudgedd.github.io/2019/01/31/Redis数据结构与对象(5)——整数集合/";
-        this.page.identifier = "2019/01/31/Redis数据结构与对象(5)——整数集合/";
-        this.page.title = 'Redis数据结构与对象(5)——整数集合';
+        this.page.url = "https://pudgedd.github.io/2019/03/18/Redis数据结构与对象7——quicklist/";
+        this.page.identifier = "2019/03/18/Redis数据结构与对象7——quicklist/";
+        this.page.title = 'Redis数据结构与对象7——quicklist';
         };
       function loadComments () {
         var d = document, s = d.createElement('script');
